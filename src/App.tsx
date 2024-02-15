@@ -1,12 +1,13 @@
-import './App.css'
+import "./App.css";
+import Header from "./layout/navigation/Header.tsx";
 
 function App() {
-
   return (
-    <div>
-      Nothing here yet...
-    </div>
-  )
+    <>
+      <Header />
+      <div>Nothing here yet...</div>
+    </>
+  );
 }
 
-export default App
+export default App;
