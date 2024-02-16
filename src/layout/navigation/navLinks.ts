@@ -6,10 +6,10 @@ export interface NavLink {
 export const navLinks: NavLink[] = [
   {
     label: "Github",
-    path: "https://placeholder.github.com",
+    path: "https://github.com/broverlord93",
   },
   {
     label: "LinkedIn",
-    path: "https://placeholder.linkedin.com",
+    path: "www.linkedin.com/in/anthonylimani",
   },
 ];
