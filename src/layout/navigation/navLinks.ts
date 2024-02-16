@@ -10,6 +10,6 @@ export const navLinks: NavLink[] = [
   },
   {
     label: "LinkedIn",
-    path: "www.linkedin.com/in/anthonylimani",
+    path: "https://www.linkedin.com/in/anthonylimani",
   },
 ];
