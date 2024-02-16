@@ -1,7 +1,8 @@
-import { navLinks } from "./navLinks.ts";
+import React from "react";
 import NavLink from "./NavLink.tsx";
+import { navLinks } from "./navLinks.ts";
 
-const NavBar = () => {
+const NavBar: React.FC = () => {
   return (
     <div className={"main-nav"}>
       <div className={"main-nav__links"}>

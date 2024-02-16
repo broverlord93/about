@@ -1,0 +1,10 @@
+.main-header {
+  grid-area: header;
+  background-color: #0070a8;
+
+  .main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}

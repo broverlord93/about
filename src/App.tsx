@@ -1,4 +1,3 @@
-import "./App.css";
 import Header from "./layout/navigation/Header.tsx";
 
 function App() {
