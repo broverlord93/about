@@ -1,4 +1,5 @@
 @import "./layout/navigation/navigation.scss";
+@import "./assets/scss/_variables.scss";
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -19,6 +20,8 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100%;
+
+  background-color: $base-main-color;
 
   display: grid;
   grid-template-rows: 3.5rem auto fit-content(8rem);

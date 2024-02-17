@@ -1,10 +1,36 @@
+@import "../../assets/scss/_variables.scss";
+
 .main-header {
   grid-area: header;
-  background-color: #0070a8;
+  background-color: $base-nav-color;
 
   .main-nav {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    &__links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      list-style: none;
+    }
+
+    &__link a {
+      font-weight: bold;
+      text-decoration: none;
+
+      color: whitesmoke;
+      background-color: $button-primary;
+
+      border-radius: 0.25rem;
+      padding: 0.2rem;
+      margin: 0.25rem;
+
+      :active {
+        text-decoration: none;
+      }
+    }
   }
 }

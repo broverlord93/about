@@ -5,13 +5,13 @@ import { navLinks } from "./navLinks.ts";
 const NavBar: React.FC = () => {
   return (
     <div className={"main-nav"}>
-      <div className={"main-nav__links"}>
+      <ul className={"main-nav__links"}>
         {navLinks.map(({ label, path }, index) => {
           return (
             <NavLink key={`${index}-${label}`} label={label} path={path} />
           );
         })}
-      </div>
+      </ul>
     </div>
   );
 };
