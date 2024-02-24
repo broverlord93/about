@@ -2,7 +2,13 @@
 
 .main-header {
   grid-area: header;
-  background-color: $base-nav-color;
+  background: linear-gradient(
+                  225deg,
+                  $nav-primary 0%,
+                  $nav-lighter-a 20%,
+                  $nav-lighter-b 35%,
+                  $background-primary 50%
+  );
 
   .main-nav {
     display: flex;
