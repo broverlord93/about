@@ -1,10 +1,11 @@
+import Main from "./layout/main/Main.tsx";
 import Header from "./layout/navigation/Header.tsx";
 
 function App() {
   return (
     <>
       <Header />
-      <div>Nothing here yet...</div>
+      <Main>Nothing here yet...</Main>
     </>
   );
 }
