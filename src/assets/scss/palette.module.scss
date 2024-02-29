@@ -1,0 +1,7 @@
+@use "palette";
+
+:export {
+  @each $name, $color in palette.$colors {
+    #{$name}: $color
+  }
+}

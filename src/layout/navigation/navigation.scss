@@ -1,19 +1,17 @@
-@import "../../assets/scss/_variables.scss";
+@import "../../assets/scss/palette";
 
 .main-header {
   grid-area: header;
-  background: linear-gradient(
-                  225deg,
-                  $nav-primary 0%,
-                  $nav-lighter-a 20%,
-                  $nav-lighter-b 35%,
-                  $background-primary 50%
-  );
+  background-color: $nav-primary;
 
   .main-nav {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+
+    &__icon {
+
+    }
 
     &__links {
       display: flex;
