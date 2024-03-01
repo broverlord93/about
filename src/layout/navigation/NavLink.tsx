@@ -3,9 +3,11 @@ import { NavLinkProps } from "./types.ts";
 
 const NavLink: FC<NavLinkProps> = ({ icon, label, path }) => {
   return (
-    <li className={"main-nav__link"}>
-      {icon && icon()}
-      <a href={path}>{label}</a>
+    <li className={"nav-item"}>
+      <a href={path}>
+        {icon && icon()}
+        <span className={"nav-item__label"}>{label}</span>
+      </a>
     </li>
   );
 };
