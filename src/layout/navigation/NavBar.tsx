@@ -4,8 +4,8 @@ import { navLinks } from "./navLinks.tsx";
 
 const NavBar: React.FC = () => {
   return (
-    <div className={"main-nav"}>
-      <ul className={"main-nav__links"}>
+    <div className={"nav"}>
+      <ul className={"nav-items"}>
         {navLinks.map(({ icon, label, path }, index) => {
           return (
             <NavLink
