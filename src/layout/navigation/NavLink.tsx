@@ -6,7 +6,7 @@ const NavLink: FC<NavLinkProps> = ({ icon, label, path }) => {
     <li className={"nav-item"}>
       <a href={path}>
         {icon && icon()}
-        <span className={"nav-item__label"}>{label}</span>
+        {label && <span className={"nav-item__label"}>{label}</span>}
       </a>
     </li>
   );
