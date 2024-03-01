@@ -1,5 +1,6 @@
 export interface SVGIconProps {
-  className: string | null;
-  color: string | null;
-  id: string | null;
+  className?: string;
+  color?: string;
+  id?: string;
+  size?: string;
 }
