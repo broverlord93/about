@@ -1,5 +1,5 @@
 export interface NavLinkProps {
-  icon?: (() => JSX.Element) | null;
-  label: string;
+  icon?: () => JSX.Element;
+  label?: string;
   path: string;
 }
