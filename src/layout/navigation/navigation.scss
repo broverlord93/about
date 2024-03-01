@@ -4,36 +4,36 @@
   grid-area: header;
   background-color: $nav-primary;
 
-  .main-nav {
+  .nav {
     display: flex;
     align-items: center;
     justify-content: flex-end;
 
-    &__icon {
-
-    }
-
-    &__links {
-      display: flex;
+    &-items {
+      display: inline-flex;
       align-items: center;
       justify-content: center;
 
       list-style: none;
     }
 
-    &__link a {
-      font-weight: bold;
-      text-decoration: none;
-
-      color: whitesmoke;
-      background-color: $button-primary;
-
+    &-item {
       border-radius: 0.25rem;
       padding: 0.2rem;
       margin: 0.25rem;
 
-      :active {
+      color: whitesmoke;
+      background-color: $button-primary;
+
+      a, a:link, a:visited, a:focus, a:hover, a:active {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        font-weight: bold;
         text-decoration: none;
+
+        color: whitesmoke;
       }
     }
   }
