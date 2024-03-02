@@ -1,5 +1,5 @@
-import Main from "./layout/main/Main.tsx";
-import Header from "./layout/navigation/Header.tsx";
+import Main from "@layout/main/Main.tsx";
+import Header from "@layout/navigation/Header.tsx";
 
 function App() {
   return (

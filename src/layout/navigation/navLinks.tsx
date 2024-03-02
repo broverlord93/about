@@ -1,6 +1,6 @@
-import * as palette from "../../assets/scss/palette.module.scss";
-import GithubIcon from "../../components/icons/GithubIcon.tsx";
-import LinkedInIcon from "../../components/icons/LinkedInIcon.tsx";
+import * as palette from "@assets/scss/palette.module.scss";
+import GithubIcon from "@components/icons/GithubIcon.tsx";
+import LinkedInIcon from "@components/icons/LinkedInIcon.tsx";
 import { NavLinkProps } from "./types.ts";
 
 export const navLinks: NavLinkProps[] = [
