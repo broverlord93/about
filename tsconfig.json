@@ -39,6 +39,9 @@
       "@components/*": [
         "src/components/*"
       ],
+      "@layout/*": [
+        "src/layout/*"
+      ],
       "@src/*": [
         "src/*"
       ]
