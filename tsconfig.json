@@ -9,7 +9,9 @@
     ],
     "module": "ESNext",
     "skipLibCheck": true,
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
     /* Bundler mode */
 
     "moduleResolution": "Node",
@@ -27,7 +29,20 @@
     "noFallthroughCasesInSwitch": true,
     /* INTEROP */
 
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    /* PATHS */
+    "baseUrl": ".",
+    "paths": {
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@src/*": [
+        "src/*"
+      ]
+    }
   },
   "include": [
     "src"

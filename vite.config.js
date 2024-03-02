@@ -4,8 +4,8 @@ import { defineConfig } from "vite";
 import sassDts from "vite-plugin-sass-dts";
 import * as paths from "./paths.json";
 
-const computedPaths: object = () => {
-  const computed: { [index: string]: string } = {};
+const computedPaths = () => {
+  const computed = {};
   for (const key in paths) {
     const alias = `@${key}`;
     computed[alias] = path.resolve(__dirname, paths[key]);
@@ -27,7 +27,9 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      ...computedPaths,
+      "@assets": path.resolve(__dirname, "src/assets"),
+      "@components": path.resolve(__dirname, "src/components"),
+      "@src": path.resolve(__dirname, "src"),
     },
   },
   server: {
