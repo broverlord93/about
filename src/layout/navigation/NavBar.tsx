@@ -1,14 +1,10 @@
-import NavBranding from "@layout/navigation/NavBranding.tsx";
-import React from "react";
+import { FC } from "react";
 import NavLink from "./NavLink.tsx";
 import { navLinks } from "./navLinks.tsx";
 
-const NavBar: React.FC = () => {
+const NavBar: FC = () => {
   return (
     <div className={"nav"}>
-      <div className={"nav-branding"}>
-        <NavBranding className={"nav-branding-canvas"} />
-      </div>
       <ul className={"nav-items"}>
         {navLinks.map(({ icon, label, path }, index) => {
           return (
