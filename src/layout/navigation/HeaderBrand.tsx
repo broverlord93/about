@@ -1,24 +1,46 @@
-import helvetiker from "@assets/fonts/helvetiker_regular.typeface.json";
-import { Canvas, extend } from "@react-three/fiber";
+import * as palette from "@assets/scss/palette.module.scss";
+import { Center, OrbitControls, Text3D } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import { FC } from "react";
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 
-const HeaderBranding: FC<{ className: string }> = ({ className }) => {
-  extend({ TextGeometry });
-  const message = "My Awesome Website!";
-  const font = new FontLoader().parse(helvetiker);
-
+const HeaderBrand: FC<{ className: string }> = ({ className }) => {
   return (
-    <Canvas className={className}>
-      <ambientLight intensity={0.1} />
-      <directionalLight position={[0, 0, 5]} />
-      <mesh position={[-8, 0, 0]}>
-        <textGeometry args={[message, { font, size: 1, height: 0.5 }]} />
-        <meshStandardMaterial />
-      </mesh>
-    </Canvas>
+    <div className={className}>
+      <Canvas className={`${className}-canvas`}>
+        <ambientLight intensity={1} />
+        <directionalLight position={[0, 10, 10]} />
+        <OrbitControls
+          enableZoom={false}
+          enablePan={false}
+          minPolarAngle={Math.PI / 4}
+          maxPolarAngle={Math.PI / 4}
+        />
+        <Center rotation={[-0.5, -0.25, 0]}>
+          <Text3D
+            curveSegments={32}
+            bevelEnabled
+            bevelSize={0.02}
+            bevelThickness={0.1}
+            height={0.5}
+            lineHeight={0.8}
+            letterSpacing={-0.06}
+            size={1.5}
+            font={"/src/assets/fonts/helvetiker_regular.typeface.json"}
+          >
+            {`Limani\n  .dev`}
+            <meshStandardMaterial
+              attach={"material-0"}
+              color={palette.secondary}
+            />
+            <meshStandardMaterial
+              attach={"material-1"}
+              color={palette.success}
+            />
+          </Text3D>
+        </Center>
+      </Canvas>
+    </div>
   );
 };
 
-export default HeaderBranding;
+export default HeaderBrand;
