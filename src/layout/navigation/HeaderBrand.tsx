@@ -4,7 +4,7 @@ import { FC } from "react";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
 
-const NavBranding: FC<{ className: string }> = ({ className }) => {
+const HeaderBranding: FC<{ className: string }> = ({ className }) => {
   extend({ TextGeometry });
   const message = "My Awesome Website!";
   const font = new FontLoader().parse(helvetiker);
@@ -13,7 +13,7 @@ const NavBranding: FC<{ className: string }> = ({ className }) => {
     <Canvas className={className}>
       <ambientLight intensity={0.1} />
       <directionalLight position={[0, 0, 5]} />
-      <mesh>
+      <mesh position={[-8, 0, 0]}>
         <textGeometry args={[message, { font, size: 1, height: 0.5 }]} />
         <meshStandardMaterial />
       </mesh>
@@ -21,4 +21,4 @@ const NavBranding: FC<{ className: string }> = ({ className }) => {
   );
 };
 
-export default NavBranding;
+export default HeaderBranding;
