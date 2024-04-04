@@ -19,18 +19,18 @@ const HeaderBrand: FC<{ className: string }> = ({ className }) => {
           <Text3D
             curveSegments={32}
             bevelEnabled
-            bevelSize={0.02}
+            bevelSize={0.05}
             bevelThickness={0.1}
-            height={0.5}
+            height={0.2}
             lineHeight={0.8}
-            letterSpacing={-0.06}
+            letterSpacing={0}
             size={1.5}
             font={"/src/assets/fonts/helvetiker_regular.typeface.json"}
           >
             {`Limani\n  .dev`}
             <meshStandardMaterial
               attach={"material-0"}
-              color={palette.secondary}
+              color={palette.primary}
             />
             <meshStandardMaterial
               attach={"material-1"}
