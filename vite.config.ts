@@ -11,19 +11,20 @@ export default defineConfig({
       enabledMode: ["development", "production"],
       global: {
         generate: true,
-        outputFilePath: path.resolve(__dirname, "./src/@types/style.d.ts"),
-      },
-    }),
+        outputFilePath: path.resolve(__dirname, "./src/@types/style.d.ts")
+      }
+    })
   ],
   resolve: {
     alias: {
       "@assets": path.resolve(__dirname, "src/assets"),
       "@components": path.resolve(__dirname, "src/components"),
       "@layout": path.resolve(__dirname, "src/layout"),
-      "@src": path.resolve(__dirname, "src"),
-    },
+      "@redux": path.resolve(__dirname, "src/redux"),
+      "@src": path.resolve(__dirname, "src")
+    }
   },
   server: {
-    port: 8000,
-  },
+    port: 8000
+  }
 });
