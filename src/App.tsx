@@ -1,11 +1,11 @@
-import Main from "@layout/main/Main.tsx";
-import Header from "@layout/navigation/Header.tsx";
+import Main from "@layout/main/Main";
+import Header from "@layout/navigation/Header";
 
 function App() {
   return (
     <>
       <Header />
-      <Main>Nothing here yet...</Main>
+      <Main></Main>
     </>
   );
 }
