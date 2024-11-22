@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@assets/*": [
+        "src/assets/*"
+      ],
+      "@components/*": [
+        "src/components/*"
+      ],
+      "@layout/*": [
+        "src/layout/*"
+      ],
+      "@redux/*": [
+        "src/redux/*"
+      ],
+      "@src/*": [
+        "src/*"
+      ]
+    },
+    "allowSyntheticDefaultImports": true
+  }
+}
