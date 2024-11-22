@@ -1,19 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
+    "target": "ES2023",
     "useDefineForClassFields": true,
     "lib": [
-      "ESNext",
+      "ES2023",
       "DOM",
-      "DOM.Iterable"
     ],
-    "module": "ESNext",
-    "skipLibCheck": true,
-    "types": [
-      "node"
-    ],
-    /* Bundler mode */
+    "module": "NodeNext",
 
+    /* Bundler mode */
     "moduleResolution": "NodeNext",
     "allowImportingTsExtensions": true,
     "allowJs": true,
@@ -21,15 +16,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    /* Linting */
 
+    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    /* INTEROP */
+    "noImplicitAny": true,
 
+    /* INTEROP */
     "allowSyntheticDefaultImports": true,
+
     /* PATHS */
     "baseUrl": ".",
     "paths": {
