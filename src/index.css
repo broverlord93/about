@@ -1,5 +1,4 @@
-@import "./layout/navigation/navigation.scss";
-@import "assets/scss/palette";
+
 
 @tailwind base;
 @tailwind components;
@@ -24,8 +23,6 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100%;
-
-  background-color: $background-primary;
 
   display: grid;
   grid-template-rows: 5rem auto fit-content(8rem);
