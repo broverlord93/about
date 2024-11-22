@@ -5,7 +5,6 @@ export default {
   darkMode: ["selector"],
   mode: "jit",
   plugins: [require("tailwindcss-animate")],
-  purge: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     colors: {
       avocado: {
