@@ -20,12 +20,9 @@ importers:
       '@reduxjs/toolkit':
         specifier: ^2.3.0
         version: 2.3.0(react-redux@9.1.2(@types/react@18.3.12)(react@18.3.1)(redux@5.0.1))(react@18.3.1)
-      '@types/three':
-        specifier: ^0.170.0
-        version: 0.170.0
-      framer-motion-3d:
+      motion:
         specifier: ^11.11.17
-        version: 11.11.17(@emotion/is-prop-valid@1.3.1)(@react-three/fiber@8.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.170.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.170.0)
+        version: 11.11.17(@emotion/is-prop-valid@1.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -51,6 +48,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.1
         version: 18.3.1
+      '@types/three':
+        specifier: ^0.170.0
+        version: 0.170.0
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.15.0
         version: 8.15.0(@typescript-eslint/parser@8.15.0(eslint@9.15.0(jiti@1.21.6))(typescript@5.6.3))(eslint@9.15.0(jiti@1.21.6))(typescript@5.6.3)
@@ -1248,14 +1248,6 @@ packages:
   fraction.js@4.3.7:
     resolution: {integrity: sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==}
 
-  framer-motion-3d@11.11.17:
-    resolution: {integrity: sha512-nnNDGU1VdKy27+uB1LFVVPyR1s34DrGFNEqjhQWZF+sYJ3TBN3FYb8UWtyWLUOyIHKwJdeOkylmt4nq9xwk1mA==}
-    peerDependencies:
-      '@react-three/fiber': 8.2.2
-      react: '>=18.0'
-      react-dom: '>=18.0'
-      three: '>=0.133'
-
   framer-motion@11.11.17:
     resolution: {integrity: sha512-O8QzvoKiuzI5HSAHbcYuL6xU+ZLXbrH7C8Akaato4JzQbX2ULNeniqC2Vo5eiCtFktX9XsJ+7nUhxcl2E2IjpA==}
     peerDependencies:
@@ -1576,6 +1568,20 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  motion@11.11.17:
+    resolution: {integrity: sha512-y6mXYElvJ5HHwPBUpYG/5wclKVGW4hJhqPkTjWccib5/WrcRM185adg3+4aSmG5iD10XKFt5uBOAiKwuzMHPPQ==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0
+      react-dom: ^18.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   ms@2.1.3:
     resolution: {integrity: sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==}
 
@@ -1788,9 +1794,6 @@ packages:
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-
-  react-merge-refs@2.1.1:
-    resolution: {integrity: sha512-jLQXJ/URln51zskhgppGJ2ub7b2WFKGq3cl3NYKtlHoTG+dN2q7EzWrn3hN3EgPsTMvpR9tpq5ijdp7YwFZkag==}
 
   react-reconciler@0.27.0:
     resolution: {integrity: sha512-HmMDKciQjYmBRGuuhIaKA1ba/7a+UsM5FzOZsMO2JYHt9Jh8reCb7j1eDC95NOyUlKM9KRyvdx0flBuDvYSBoA==}
@@ -3536,17 +3539,6 @@ snapshots:
 
   fraction.js@4.3.7: {}
 
-  framer-motion-3d@11.11.17(@emotion/is-prop-valid@1.3.1)(@react-three/fiber@8.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.170.0))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.170.0):
-    dependencies:
-      '@react-three/fiber': 8.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(three@0.170.0)
-      framer-motion: 11.11.17(@emotion/is-prop-valid@1.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-      react-merge-refs: 2.1.1
-      three: 0.170.0
-    transitivePeerDependencies:
-      - '@emotion/is-prop-valid'
-
   framer-motion@11.11.17(@emotion/is-prop-valid@1.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       tslib: 2.8.1
@@ -3798,6 +3790,15 @@ snapshots:
 
   mkdirp@2.1.6: {}
 
+  motion@11.11.17(@emotion/is-prop-valid@1.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      framer-motion: 11.11.17(@emotion/is-prop-valid@1.3.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      tslib: 2.8.1
+    optionalDependencies:
+      '@emotion/is-prop-valid': 1.3.1
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
+
   ms@2.1.3: {}
 
   mz@2.7.0:
@@ -3992,8 +3993,6 @@ snapshots:
       scheduler: 0.23.2
 
   react-is@16.13.1: {}
-
-  react-merge-refs@2.1.1: {}
 
   react-reconciler@0.27.0(react@18.3.1):
     dependencies:
