@@ -1,4 +1,3 @@
-import * as palette from "@assets/scss/palette.module.scss";
 import { Center, OrbitControls, Text3D } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { FC } from "react";
@@ -30,11 +29,11 @@ const HeaderBrand: FC<{ className: string }> = ({ className }) => {
             {`Limani\n  .dev`}
             <meshStandardMaterial
               attach={"material-0"}
-              color={palette.primary}
+              // color={palette.primary}
             />
             <meshStandardMaterial
               attach={"material-1"}
-              color={palette.success}
+              // color={palette.success}
             />
           </Text3D>
         </Center>
