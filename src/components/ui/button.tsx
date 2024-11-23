@@ -1,25 +1,24 @@
-import * as React from "react";
+import { cn } from "@/lib/utils";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-
-import { cn } from "@/lib/utils";
+import * as React from "react";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-millbrook-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:ring-offset-millbrook-950 dark:focus-visible:ring-millbrook-300",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-silver-tree-950 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:ring-offset-silver-tree-950 dark:focus-visible:ring-silver-tree-300",
   {
     variants: {
       variant: {
         default:
-          "bg-millbrook-900 text-millbrook-50 hover:bg-millbrook-900/90 dark:bg-millbrook-50 dark:text-millbrook-900 dark:hover:bg-millbrook-50/90",
+          "bg-silver-tree-900 text-silver-tree-50 hover:bg-silver-tree-900/90 dark:bg-silver-tree-50 dark:text-silver-tree-900 dark:hover:bg-silver-tree-50/90",
         destructive:
-          "bg-red-500 text-millbrook-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-millbrook-50 dark:hover:bg-red-900/90",
+          "bg-dark-tan-500 text-silver-tree-50 hover:bg-dark-tan-500/90 dark:bg-dark-tan-900 dark:text-silver-tree-50 dark:hover:bg-dark-tan-900/90",
         outline:
-          "border border-millbrook-200 bg-white hover:bg-millbrook-100 hover:text-millbrook-900 dark:border-millbrook-800 dark:bg-millbrook-950 dark:hover:bg-millbrook-800 dark:hover:text-millbrook-50",
+          "border border-silver-tree-200 bg-white hover:bg-silver-tree-100 hover:text-silver-tree-900 dark:border-silver-tree-800 dark:bg-silver-tree-950 dark:hover:bg-silver-tree-800 dark:hover:text-silver-tree-50",
         secondary:
-          "bg-millbrook-100 text-millbrook-900 hover:bg-millbrook-100/80 dark:bg-millbrook-800 dark:text-millbrook-50 dark:hover:bg-millbrook-800/80",
+          "bg-silver-tree-100 text-silver-tree-900 hover:bg-silver-tree-100/80 dark:bg-silver-tree-800 dark:text-silver-tree-50 dark:hover:bg-silver-tree-800/80",
         ghost:
-          "hover:bg-millbrook-100 hover:text-millbrook-900 dark:hover:bg-millbrook-800 dark:hover:text-millbrook-50",
-        link: "text-millbrook-900 underline-offset-4 hover:underline dark:text-millbrook-50",
+          "hover:bg-silver-tree-100 hover:text-silver-tree-900 dark:hover:bg-silver-tree-800 dark:hover:text-silver-tree-50",
+        link: "text-silver-tree-900 underline-offset-4 hover:underline dark:text-silver-tree-50",
       },
       size: {
         default: "h-10 px-4 py-2",
