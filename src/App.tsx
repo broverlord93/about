@@ -1,13 +1,7 @@
-import Main from "@layout/main/Main";
-import Header from "@layout/navigation/Header";
+import Layout from "@app/Layout";
 
 function App() {
-  return (
-    <>
-      <Header />
-      <Main></Main>
-    </>
-  );
+  return <Layout></Layout>;
 }
 
 export default App;
