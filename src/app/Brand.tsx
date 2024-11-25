@@ -11,10 +11,12 @@ const Brand: FC<{ className: string }> = ({ className }) => {
         <OrbitControls
           enableZoom={false}
           enablePan={false}
+          minAzimuthAngle={-Math.PI / 4}
+          maxAzimuthAngle={Math.PI / 4}
           minPolarAngle={Math.PI / 4}
-          maxPolarAngle={Math.PI / 4}
+          maxPolarAngle={Math.PI / 2}
         />
-        <Center rotation={[-0.5, -0.25, 0]}>
+        <Center position={[0, 0, 0]} rotation={[0, 0, 0]}>
           <Text3D
             curveSegments={32}
             bevelEnabled
@@ -26,7 +28,7 @@ const Brand: FC<{ className: string }> = ({ className }) => {
             size={1.5}
             font={"/src/assets/fonts/helvetiker_regular.typeface.json"}
           >
-            {`Limani\n  .dev`}
+            {`Limani.dev`}
             <meshStandardMaterial
               attach={"material-0"}
               // color={palette.primary}
