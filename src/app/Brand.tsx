@@ -2,7 +2,7 @@ import { Center, OrbitControls, Text3D } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { FC } from "react";
 
-const HeaderBrand: FC<{ className: string }> = ({ className }) => {
+const Brand: FC<{ className: string }> = ({ className }) => {
   return (
     <div className={className}>
       <Canvas className={`${className}-canvas`}>
@@ -42,4 +42,4 @@ const HeaderBrand: FC<{ className: string }> = ({ className }) => {
   );
 };
 
-export default HeaderBrand;
+export default Brand;
