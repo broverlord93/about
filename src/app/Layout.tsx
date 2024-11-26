@@ -11,10 +11,8 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   return (
     <SidebarProvider>
       <AppSidebar />
-      <Main>
-        <SidebarTrigger />
-        {children}
-      </Main>
+      <SidebarTrigger />
+      <Main>{children}</Main>
     </SidebarProvider>
   );
 };
