@@ -40,7 +40,7 @@ const items = [
 
 const AppSidebar: FC = () => {
   return (
-    <Sidebar>
+    <Sidebar className={"shadow-md"}>
       <SidebarHeader>
         <Brand className={"brand"} />
       </SidebarHeader>
