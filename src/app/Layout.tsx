@@ -1,6 +1,7 @@
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import AppSidebar from "@components/app-sidebar";
 import type { FC, ReactNode } from "react";
+import Header from "./Header";
 import Main from "./Main";
 
 interface LayoutProps {
@@ -9,9 +10,9 @@ interface LayoutProps {
 
 const Layout: FC<LayoutProps> = ({ children }) => {
   return (
-    <SidebarProvider>
+    <SidebarProvider className={"bg-lemon-chiffon-100"}>
+      <Header />
       <AppSidebar />
-      <SidebarTrigger />
       <Main>{children}</Main>
     </SidebarProvider>
   );
