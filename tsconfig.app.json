@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
-      ],
-      "@app/*": [
-        "src/app/*"
       ],
       "@assets/*": [
         "src/assets/*"
@@ -18,6 +17,9 @@
       ],
       "@redux/*": [
         "src/redux/*"
+      ],
+      "@routes/*": [
+        "src/routes/*"
       ],
       "@src/*": [
         "src/*"

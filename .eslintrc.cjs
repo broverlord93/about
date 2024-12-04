@@ -4,7 +4,8 @@ module.exports = {
   extends: [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended"
+    "plugin:react-hooks/recommended",
+    "plugin:@tanstack/eslint-plugin-router/recommended",
   ],
   ignorePatterns: ["dist", ".eslintrc.cjs"],
   parser: "@typescript-eslint/parser",
@@ -13,7 +14,7 @@ module.exports = {
     "@typescript-eslint/ no-require-imports": false,
     "react-refresh/only-export-components": [
       "warn",
-      { allowConstantExport: true }
+      { allowConstantExport: true },
     ],
-  }
+  },
 };

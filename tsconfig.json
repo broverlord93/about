@@ -27,9 +27,6 @@
       "@/*": [
         "src/*"
       ],
-      "@app/*": [
-        "src/app/*"
-      ],
       "@assets/*": [
         "src/assets/*"
       ],
@@ -38,6 +35,9 @@
       ],
       "@redux/*": [
         "src/redux/*"
+      ],
+      "@routes/*": [
+        "src/routes/*"
       ],
       "@src/*": [
         "src/*"
