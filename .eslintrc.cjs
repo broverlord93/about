@@ -11,7 +11,7 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   plugins: ["react-refresh"],
   rules: {
-    "@typescript-eslint/ no-require-imports": false,
+    "@typescript-eslint/ no-require-imports": 0,
     "react-refresh/only-export-components": [
       "warn",
       { allowConstantExport: true },
