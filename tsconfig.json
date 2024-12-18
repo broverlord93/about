@@ -1,31 +1,19 @@
 {
   "compilerOptions": {
-    "target": "ES2023",
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "strictNullChecks": true,
     "useDefineForClassFields": true,
     "lib": [
-      "ES2023",
-      "DOM"
+      "ESNext",
+      "DOM",
+      "DOM.Iterable"
     ],
-    "module": "NodeNext",
-    /* Bundler mode */
-    "moduleResolution": "NodeNext",
-    "allowImportingTsExtensions": true,
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "noEmit": true,
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitAny": true,
-    /* INTEROP */
-    "allowSyntheticDefaultImports": true,
-    /* PATHS */
+    "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "@assets/*": [
         "src/assets/*"
@@ -42,17 +30,14 @@
       "@src/*": [
         "src/*"
       ]
-    }
-  },
-  "include": [
-    "src"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
     },
-    {
-      "path": "./tsconfig.app.json"
-    }
-  ]
+    "include": [
+      "src"
+    ],
+    "references": [
+      {
+        "path": "./tsconfig.node.json"
+      }
+    ]
+  }
 }

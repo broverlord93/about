@@ -3,10 +3,20 @@
     "composite": true,
     "skipLibCheck": true,
     "module": "ESNext",
-    "moduleResolution": "NodeNext",
+    /* Bundler mode */
+    "allowImportingTsExtensions": true,
+    "allowJs": true,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true
+    "isolatedModules": true,
+    "moduleResolution": "NodeNext",
+    "noEmit": true,
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    /* INTEROP */
+    "allowSyntheticDefaultImports": true
   },
   "include": [
     "vite.config"
