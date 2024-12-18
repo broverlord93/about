@@ -1,4 +1,4 @@
-import Layout from "@app/Layout";
+import Layout from "@/Layout";
 
 function App() {
   return <Layout></Layout>;
