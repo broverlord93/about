@@ -4,15 +4,13 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@components/ui/navigation-menu";
-import type { FC } from "react";
+import type { FC, PropsWithChildren } from "react";
 
-interface HeaderProps {}
-
-const Header: FC<HeaderProps> = () => {
+const Header: FC<PropsWithChildren> = () => {
   return (
     <header
       className={
-        "bg-sugar-cane-700 text-sugar-cane-100 fixed right-0 top-0 z-50 flex h-[var(--header-height)] w-[calc(100vw_-_var(--sidebar-width))] flex-col drop-shadow-lg"
+        "fixed right-0 top-0 z-50 flex h-[var(--header-height)] w-[calc(100vw_-_var(--sidebar-width))] flex-col bg-sugar-cane-700 text-sugar-cane-100 drop-shadow-lg"
       }
     >
       <NavigationMenu className={"self-center"}>
