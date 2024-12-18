@@ -1,15 +1,15 @@
-import { SidebarProvider } from "@/components/ui/sidebar";
 import AppSidebar from "@components/app-sidebar";
+import { SidebarProvider } from "@components/ui/sidebar";
 import type { FC, PropsWithChildren } from "react";
+import Body from "./Body";
 import Header from "./Header";
-import Main from "./Main";
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <SidebarProvider className={"bg-lemon-chiffon-100"}>
       <Header />
       <AppSidebar />
-      <Main>{children}</Main>
+      <Body>{children}</Body>
     </SidebarProvider>
   );
 };
