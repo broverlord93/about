@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import { FC, PropsWithChildren } from "react";
 
-const Main: FC<PropsWithChildren> = ({ children }) => {
+const Body: FC<PropsWithChildren> = ({ children }) => {
   return (
     <main
       className={
@@ -18,4 +18,4 @@ const Main: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default Main;
+export default Body;
