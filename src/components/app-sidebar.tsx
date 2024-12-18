@@ -9,9 +9,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import Brand from "@app/Brand";
 import { Home, Settings } from "lucide-react";
 import type { FC } from "react";
+import Brand from "./Brand";
 import GithubIcon from "./icons/GithubIcon";
 import LinkedInIcon from "./icons/LinkedInIcon";
 
