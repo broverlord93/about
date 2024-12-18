@@ -1,21 +1,8 @@
 {
   "compilerOptions": {
     "composite": true,
-    "skipLibCheck": true,
-    "module": "ESNext",
-    /* Bundler mode */
-    "allowImportingTsExtensions": true,
-    "allowJs": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "moduleResolution": "NodeNext",
-    "noEmit": true,
-    /* Linting */
-    "strict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noImplicitAny": true,
-    /* INTEROP */
+    "module": "NodeNext",
+    "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true
   },
   "include": [

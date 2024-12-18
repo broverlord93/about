@@ -1,9 +1,22 @@
 {
   "compilerOptions": {
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true,
     "strictNullChecks": true,
     "useDefineForClassFields": true,
+    "skipLibCheck": true,
+    "module": "ESNext",
+    /* Bundler mode */
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "moduleResolution": "Bundler",
+    "noEmit": true,
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    /* INTEROP */
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "ESNext",
       "DOM",
