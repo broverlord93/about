@@ -42,6 +42,9 @@
       ],
       "@src/*": [
         "src/*"
+      ],
+      "@types/*": [
+        "src/types/*"
       ]
     },
     "include": [
