@@ -34,6 +34,9 @@
       "@components/*": [
         "src/components/*"
       ],
+      "@lib/*": [
+        "src/lib/*"
+      ],
       "@redux/*": [
         "src/redux/*"
       ],
