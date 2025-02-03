@@ -20,7 +20,7 @@ export default defineConfig({
       "@redux": path.resolve(__dirname, "src/redux"),
       "@routes": path.resolve(__dirname, "src/routes"),
       "@src": path.resolve(__dirname, "src"),
-      "@types": path.resolve(__dirname, "src/types"),
+      "@type-defs": path.resolve(__dirname, "src/types"),
     },
   },
   server: {

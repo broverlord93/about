@@ -46,7 +46,7 @@
       "@src/*": [
         "src/*"
       ],
-      "@types/*": [
+      "@type-defs/*": [
         "src/types/*"
       ]
     },
