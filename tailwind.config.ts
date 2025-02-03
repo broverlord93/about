@@ -1,10 +1,11 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: ["selector"],
   mode: "jit",
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
   theme: {
     colors: {
       current: "currentColor",
