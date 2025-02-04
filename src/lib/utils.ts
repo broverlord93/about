@@ -36,10 +36,10 @@ export const arrayMerge = <TTarget extends object, TSource extends object>(
 export const findMatch = (data: string[], find: string, defaultValue: string) =>
   data.findIndex((el) => el === find) ?? defaultValue;
 
-export const objectsToArray = (object: Record<string, unknown>): string[] => {
+export const objectsToArray = (object: object): string[] => {
   return Object.values(object).reduce((result: string[], value: unknown) => {
     if (typeof value === "object" && !Array.isArray(value) && value !== null) {
-      return result.concat(objectsToArray(value as Record<string, unknown>));
+      return result.concat(objectsToArray(value));
     }
 
     if (typeof value === "string") {
@@ -50,6 +50,6 @@ export const objectsToArray = (object: Record<string, unknown>): string[] => {
   }, []);
 };
 
-export const objectsToString = (object: Record<string, unknown>) => {
+export const objectsToString = (object: object) => {
   return objectsToArray(object).join(" ");
 };
