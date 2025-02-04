@@ -10,7 +10,7 @@ import {
   timelineItem,
 } from "./style";
 
-const theme: object = {
+const theme = {
   timeline,
   timelineItem,
   timelineIcon,
@@ -18,6 +18,8 @@ const theme: object = {
   timelineBody,
   timelineConnector,
 };
+
+type Theme = typeof theme & object;
 
 const TimelineTheme = createContext(theme);
 
@@ -27,7 +29,7 @@ export const ThemeProvider: FC<PropsWithChildren<{ value: object }>> = ({
   value = theme,
   children,
 }) => {
-  const mergedValue: object = merge(theme, value, { arrayMerge });
+  const mergedValue: Theme = merge(theme, value, { arrayMerge });
 
   return (
     <TimelineTheme.Provider value={mergedValue}>
