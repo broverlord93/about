@@ -1,20 +1,31 @@
 import { type ClassValue, clsx } from "clsx";
-import merge from "deepmerge";
+import merge, { type ArrayMergeOptions } from "deepmerge";
 import { twMerge } from "tailwind-merge";
 
 export const cn = (...inputs: ClassValue[]) => {
   return twMerge(clsx(inputs));
 };
 
-export const combineMerge = (target, source, options) => {
-  const destination = target.slice();
+export const arrayMerge = <TTarget extends object, TSource extends object>(
+  target: TTarget[],
+  source: TSource[],
+  options: ArrayMergeOptions,
+): (TTarget | TSource | (TTarget & TSource))[] => {
+  const destination = target.slice() as (
+    | TTarget
+    | TSource
+    | (TTarget & TSource)
+  )[];
 
   source.forEach((item, index) => {
     if (typeof destination[index] === "undefined") {
-      destination[index] = options.cloneUnlessOtherwiseSpecified(item, options);
+      destination[index] = options.cloneUnlessOtherwiseSpecified(
+        item,
+        options,
+      ) as TSource;
     } else if (options.isMergeableObject(item)) {
       destination[index] = merge(target[index], item, options);
-    } else if (target.indexOf(item) === -1) {
+    } else if (target.indexOf(item as unknown as TTarget) === -1) {
       destination.push(item);
     }
   });
@@ -22,32 +33,23 @@ export const combineMerge = (target, source, options) => {
   return destination;
 };
 
-export const findMatch = (data, find, defaultValue) => {
-  const founded = data.findIndex((el) => el === find);
+export const findMatch = (data: string[], find: string, defaultValue: string) =>
+  data.findIndex((el) => el === find) ?? defaultValue;
 
-  return founded >= 0 ? find : defaultValue;
-};
-
-export const objectsToArray = (object) => {
-  let result = [];
-
-  Object.values(object).forEach((value) => {
-    if (typeof value === "string") {
-      result = [...result, value];
-    } else if (
-      typeof value === "object" &&
-      !Array.isArray(value) &&
-      value !== null
-    ) {
-      result = [...result, ...objectsToArray(value)];
+export const objectsToArray = (object: Record<string, unknown>): string[] => {
+  return Object.values(object).reduce((result: string[], value: unknown) => {
+    if (typeof value === "object" && !Array.isArray(value) && value !== null) {
+      return result.concat(objectsToArray(value as Record<string, unknown>));
     }
 
-    return undefined;
-  });
+    if (typeof value === "string") {
+      result.push(value);
+    }
 
-  return result;
+    return result;
+  }, []);
 };
 
-export const objectsToString = (object: object) => {
+export const objectsToString = (object: Record<string, unknown>) => {
   return objectsToArray(object).join(" ");
 };
