@@ -1,28 +1,39 @@
-// import merge from "deepmerge";
-// import PropTypes from "prop-types";
-// import React, { createContext, useContext } from "react";
-// import theme from "../theme/index";
-// import combineMerge from "../utils/combineMerge";
-//
-// const MaterialTailwindTheme = createContext(theme);
-//
-// MaterialTailwindTheme.displayName = "MaterialTailwindThemeProvider";
-//
-// function ThemeProvider({ value = theme, children }) {
-//   const mergedValue = merge(theme, value, { arrayMerge: combineMerge });
-//
-//   return (
-//     <MaterialTailwindTheme.Provider value={mergedValue}>
-//       {children}
-//     </MaterialTailwindTheme.Provider>
-//   );
-// }
-//
-// const useTheme = () => useContext(MaterialTailwindTheme);
-//
-// ThemeProvider.propTypes = {
-//   value: PropTypes.instanceOf(Object),
-//   children: PropTypes.node.isRequired,
-// };
-//
-// export { MaterialTailwindTheme, ThemeProvider, useTheme };
+import { arrayMerge } from "@lib/utils";
+import merge from "deepmerge";
+import { createContext, type FC, PropsWithChildren, useContext } from "react";
+import {
+  timeline,
+  timelineBody,
+  timelineConnector,
+  timelineHeader,
+  timelineIcon,
+  timelineItem,
+} from "./style";
+
+const theme: object = {
+  timeline,
+  timelineItem,
+  timelineIcon,
+  timelineHeader,
+  timelineBody,
+  timelineConnector,
+};
+
+const TimelineTheme = createContext(theme);
+
+TimelineTheme.displayName = "TimelineTheme";
+
+export const ThemeProvider: FC<PropsWithChildren<{ value: object }>> = ({
+  value = theme,
+  children,
+}) => {
+  const mergedValue: object = merge(theme, value, { arrayMerge });
+
+  return (
+    <TimelineTheme.Provider value={mergedValue}>
+      {children}
+    </TimelineTheme.Provider>
+  );
+};
+
+export const useTheme = () => useContext(TimelineTheme);
