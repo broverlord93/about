@@ -1,4 +1,4 @@
-import { color, variant } from "../timeline";
+import { color, variant } from "../types";
 import filled from "./colors/filled";
 import ghost from "./colors/ghost";
 import gradient from "./colors/gradient";

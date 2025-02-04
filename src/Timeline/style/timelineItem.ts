@@ -1,4 +1,4 @@
-import { color, variant } from "../timeline";
+import { color, variant } from "../types";
 
 export interface TimelineItemStyleTypes {
   defaultProps?: {
