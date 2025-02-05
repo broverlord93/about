@@ -1,71 +1,66 @@
-// import React from "react";
-//
-// // utils
-// import { twMerge } from "tailwind-merge";
-//
-// // context
-// import { useTheme } from "../../context/theme";
-//
-// // types
-// import {
-//   children,
-//   className,
-//   propTypeChildren,
-//   propTypeClassName,
-// } from "../../types/components/timeline";
-// import objectsToString from "../../utils/objectsToString";
-//
-// const TimelineItemContext = React.createContext<any>(0);
-// TimelineItemContext.displayName = "MaterialTailwind.TimelineItemContext";
-//
-// export function useTimelineItem() {
-//   const context = React.useContext(TimelineItemContext);
-//   if (!context) {
-//     throw new Error(
-//       "useTimelineItemContext() must be used within a TimelineItem. It happens when you use TimelineIcon, TimelineConnector or TimelineBody components outside the TimelineItem component.",
-//     );
-//   }
-//
-//   return context;
-// }
-//
-// // component
-// export interface TimelineItemProps extends React.HTMLAttributes<HTMLLIElement> {
-//   className?: className;
-//   children?: children;
-// }
-//
-// export const TimelineItem = React.forwardRef<HTMLLIElement, TimelineItemProps>(
-//   ({ className, children, ...rest }, ref) => {
-//     // 1. init
-//     const { timelineItem } = useTheme();
-//     const { styles } = timelineItem;
-//     const { base } = styles;
-//     const [width, setWidth] = React.useState(0);
-//     const contextValue = React.useMemo(
-//       () => [width, setWidth],
-//       [width, setWidth],
-//     );
-//
-//     // 3. set styles
-//     const classes = twMerge(objectsToString(base), className);
-//
-//     // 4. return
-//     return (
-//       <TimelineItemContext.Provider value={contextValue}>
-//         <li ref={ref} {...rest} className={classes}>
-//           {children}
-//         </li>
-//       </TimelineItemContext.Provider>
-//     );
-//   },
-// );
-//
-// TimelineItem.propTypes = {
-//   className: propTypeClassName,
-//   children: propTypeChildren.isRequired,
-// };
-//
-// TimelineItem.displayName = "MaterialTailwind.TimelineItem";
-//
-// export default TimelineItem;
+import { objectsToString } from "@lib/utils";
+import {
+  createContext,
+  type Dispatch,
+  forwardRef,
+  type HTMLAttributes,
+  type SetStateAction,
+  useContext,
+  useState,
+} from "react";
+import { twMerge } from "tailwind-merge";
+import { useTheme } from "./theme";
+import { children, className } from "./types";
+
+const TimelineItemContext = createContext<
+  | {
+      width: number;
+      setWidth: Dispatch<SetStateAction<number>>;
+    }
+  | undefined
+>(undefined);
+
+TimelineItemContext.displayName = "TimelineItemContext";
+
+export function useTimelineItem() {
+  const context = useContext(TimelineItemContext);
+  if (!context) {
+    throw new Error(
+      "useTimelineItemContext() must be used within a TimelineItem. It happens when you use TimelineIcon, TimelineConnector or TimelineBody components outside the TimelineItem component.",
+    );
+  }
+
+  return context;
+}
+
+export interface TimelineItemProps extends HTMLAttributes<HTMLLIElement> {
+  className?: className;
+  children?: children;
+}
+
+export const TimelineItem = forwardRef<HTMLLIElement, TimelineItemProps>(
+  ({ className, children, ...rest }, ref) => {
+    const { timelineItem } = useTheme();
+
+    const { styles } = timelineItem;
+    const base = styles?.base;
+
+    const [width, setWidth] = useState(0);
+
+    const classes = base
+      ? twMerge(objectsToString(base), className)
+      : className;
+
+    return (
+      <TimelineItemContext.Provider value={{ width, setWidth }}>
+        <li ref={ref} {...rest} className={classes}>
+          {children}
+        </li>
+      </TimelineItemContext.Provider>
+    );
+  },
+);
+
+TimelineItem.displayName = "TimelineItem";
+
+export default TimelineItem;
