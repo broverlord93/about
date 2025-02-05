@@ -4,13 +4,13 @@ import {
   type Dispatch,
   forwardRef,
   type HTMLAttributes,
+  type ReactNode,
   type SetStateAction,
   useContext,
   useState,
 } from "react";
 import { twMerge } from "tailwind-merge";
 import { useTheme } from "./theme";
-import { children, className } from "./types";
 
 const TimelineItemContext = createContext<
   | {
@@ -34,8 +34,8 @@ export function useTimelineItem() {
 }
 
 export interface TimelineItemProps extends HTMLAttributes<HTMLLIElement> {
-  className?: className;
-  children?: children;
+  className?: string;
+  children?: ReactNode;
 }
 
 export const TimelineItem = forwardRef<HTMLLIElement, TimelineItemProps>(
