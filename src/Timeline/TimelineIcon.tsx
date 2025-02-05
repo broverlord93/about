@@ -1,86 +1,65 @@
-// // @floading-ui
-// import { useMergeRefs } from "@floating-ui/react";
-// import PropTypes from "prop-types";
-// import React from "react";
-//
-// // utils
-// import { twMerge } from "tailwind-merge";
-//
-// // context
-// import { useTheme } from "../../context/theme";
-//
-// // types
-// import {
-//   children,
-//   className,
-//   color,
-//   propTypeChildren,
-//   propTypeClassName,
-//   propTypeColor,
-//   propTypeVariant,
-//   variant
-// } from "../../types/components/timeline";
-// import findMatch from "../../utils/findMatch";
-// import objectsToString from "../../utils/objectsToString";
-// import { useTimelineItem } from "./TimelineItem";
-//
-// export interface TimelineIconProps
-//   extends React.HTMLAttributes<HTMLSpanElement> {
-//   className?: className;
-//   children?: children;
-//   variant?: variant;
-//   color?: color;
-// }
-//
-// export const TimelineIcon = React.forwardRef<
-//   HTMLSpanElement,
-//   TimelineIconProps
-// >(({ color, variant, className, children, ...rest }, ref) => {
-//   // 1. init
-//   const { timelineIcon } = useTheme();
-//   const { styles, valid } = timelineIcon;
-//   const { base, variants } = styles;
-//   const [, setWidth] = useTimelineItem();
-//   const innerRef = React.useRef<HTMLSpanElement>(null);
-//   const mergedRef = useMergeRefs([ref, innerRef]);
-//
-//   React.useEffect(() => {
-//     const iconElement = innerRef.current;
-//
-//     if (iconElement) {
-//       const { width } = iconElement.getBoundingClientRect();
-//
-//       setWidth(width);
-//
-//       return () => {
-//         setWidth(0);
-//       };
-//     }
-//   }, [setWidth, className, children]);
-//
-//   // 3. set styles
-//   const variantClasses = objectsToString(
-//     variants[findMatch(valid.variants, variant, "filled")][
-//       findMatch(valid.colors, color, "gray")
-//     ],
-//   );
-//   const classes = twMerge(objectsToString(base), variantClasses, className);
-//
-//   // 4. return
-//   return (
-//     <span ref={mergedRef} {...rest} className={classes}>
-//       {children}
-//     </span>
-//   );
-// });
-//
-// TimelineIcon.propTypes = {
-//   children: propTypeChildren,
-//   className: propTypeClassName,
-//   color: PropTypes.oneOf(propTypeColor),
-//   variant: PropTypes.oneOf(propTypeVariant),
-// };
-//
-// TimelineIcon.displayName = "MaterialTailwind.TimelineIcon";
-//
-// export default TimelineIcon;
+import { useMergeRefs } from "@floating-ui/react";
+import { objectsToString } from "@lib/utils";
+import type { Color, Variant } from "@type-defs/style";
+import {
+  forwardRef,
+  type HTMLAttributes,
+  type ReactNode,
+  useEffect,
+  useRef,
+} from "react";
+import { twMerge } from "tailwind-merge";
+import { useTheme } from "./theme";
+import { useTimelineItem } from "./TimelineItem";
+
+export interface TimelineIconProps extends HTMLAttributes<HTMLSpanElement> {
+  className?: string;
+  children?: ReactNode;
+  variant?: Variant;
+  color?: Color;
+}
+
+export const TimelineIcon = forwardRef<HTMLSpanElement, TimelineIconProps>(
+  (
+    { color = "gray", variant = "filled", className, children, ...rest },
+    ref,
+  ) => {
+    const {
+      timelineIcon: {
+        styles: { base, variants },
+      },
+    } = useTheme();
+
+    const { setWidth } = useTimelineItem();
+
+    const innerRef = useRef<HTMLSpanElement>(null);
+    const mergedRef = useMergeRefs([ref, innerRef]);
+
+    useEffect(() => {
+      const iconElement = innerRef.current;
+
+      if (iconElement) {
+        const { width } = iconElement.getBoundingClientRect();
+
+        setWidth(width);
+
+        return () => {
+          setWidth(0);
+        };
+      }
+    }, [setWidth, className, children]);
+
+    const variantClasses = objectsToString(variants[variant][color]);
+    const classes = twMerge(objectsToString(base), variantClasses, className);
+
+    return (
+      <span ref={mergedRef} {...rest} className={classes}>
+        {children}
+      </span>
+    );
+  },
+);
+
+TimelineIcon.displayName = "TimelineIcon";
+
+export default TimelineIcon;
