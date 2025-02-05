@@ -1,30 +1,6 @@
-import { color, variant } from "../types";
-import filled from "./colors/filled";
-import ghost from "./colors/ghost";
-import gradient from "./colors/gradient";
-import outlined from "./colors/outlined";
+import { filled, ghost, gradient, outlined } from "./colors";
 
-export interface TimelineIconStyleTypes {
-  defaultProps?: {
-    color?: color;
-    variant?: variant;
-  };
-  valid?: {
-    colors?: string[];
-    variants?: string[];
-  };
-  styles?: {
-    base?: object;
-    variants?: {
-      ghost?: typeof ghost;
-      filled?: typeof filled;
-      outlined?: typeof outlined;
-      gradient?: typeof gradient;
-    };
-  };
-}
-
-export const timelineIcon: TimelineIconStyleTypes = {
+export const timelineIcon = {
   defaultProps: {
     color: "gray",
     variant: "filled",
