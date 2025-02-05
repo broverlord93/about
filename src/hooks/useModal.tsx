@@ -17,16 +17,16 @@ interface ModalProps {
   readonly size: "sm" | "lg";
 }
 
-interface ModalHeaderProps {}
-
-interface ModalBodyProps {}
-
-interface ModalFooterProps {}
+// interface ModalHeaderProps {}
+//
+// interface ModalBodyProps {}
+//
+// interface ModalFooterProps {}
 
 interface ModalOptions {
-  readonly body?: Partial<ModalBodyProps>;
-  readonly footer?: Partial<ModalFooterProps>;
-  readonly header?: Partial<ModalHeaderProps>;
+  readonly body?: Partial<object>;
+  readonly footer?: Partial<object>;
+  readonly header?: Partial<object>;
   readonly modal?: Partial<ModalProps>;
 }
 
