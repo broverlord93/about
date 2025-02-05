@@ -1,4 +1,4 @@
-const ghost: object = {
+const ghost = {
   transparent: {
     background: "bg-transparent",
     color: "text-blue-gray-900",

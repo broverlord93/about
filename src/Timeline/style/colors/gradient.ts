@@ -1,4 +1,4 @@
-const gradient: object = {
+const gradient = {
   transparent: {
     background: "bg-transparent",
     color: "text-blue-gray-900",

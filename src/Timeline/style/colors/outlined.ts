@@ -1,4 +1,4 @@
-const outlined: object = {
+const outlined = {
   transparent: {
     background: "bg-transparent",
     color: "text-blue-gray-900",

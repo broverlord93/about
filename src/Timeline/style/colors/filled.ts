@@ -1,4 +1,4 @@
-const filled: object = {
+const filled = {
   transparent: {
     background: "bg-transparent",
     color: "text-blue-gray-900",
