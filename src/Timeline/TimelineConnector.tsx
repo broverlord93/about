@@ -1,70 +1,59 @@
-// import React from "react";
-//
-// // utils
-// import { twMerge } from "tailwind-merge";
-//
-// // context
-// import { useTheme } from "../../context/theme";
-//
-// // types
-// import {
-//   children,
-//   className,
-//   propTypeChildren,
-//   propTypeClassName,
-// } from "../../types/components/timeline";
-// import objectsToString from "../../utils/objectsToString";
-// import { useTimelineItem } from "./TimelineItem";
-//
-// export interface TimelineConnectorProps
-//   extends React.HTMLAttributes<HTMLSpanElement> {
-//   className?: className;
-//   children?: children;
-// }
-//
-// export const TimelineConnector = React.forwardRef<
-//   HTMLSpanElement,
-//   TimelineConnectorProps
-// >(({ className, children, ...rest }, ref) => {
-//   // 1. init
-//   const { timelineConnector } = useTheme();
-//   const { styles } = timelineConnector;
-//   const { base } = styles;
-//   const [width] = useTimelineItem();
-//
-//   // 3. set styles
-//   const lineClasses = objectsToString(base.line);
-//   const containerClasses = twMerge(objectsToString(base.container), className);
-//
-//   // 4. return
-//   return (
-//     <span
-//       {...rest}
-//       ref={ref}
-//       className={containerClasses}
-//       style={{
-//         top: `${width}px`,
-//         width: `${width}px`,
-//         opacity: width ? 1 : 0,
-//         height: `calc(100% - ${width}px)`,
-//       }}
-//     >
-//       {children && React.isValidElement(children) ? (
-//         React.cloneElement(children as React.ReactElement, {
-//           className: twMerge(lineClasses, children.props?.className),
-//         })
-//       ) : (
-//         <span className={lineClasses} />
-//       )}
-//     </span>
-//   );
-// });
-//
-// TimelineConnector.propTypes = {
-//   children: propTypeChildren,
-//   className: propTypeClassName,
-// };
-//
-// TimelineConnector.displayName = "MaterialTailwind.TimelineConnector";
-//
-// export default TimelineConnector;
+import { objectsToString } from "@lib/utils";
+import {
+  cloneElement,
+  forwardRef,
+  type HTMLAttributes,
+  isValidElement,
+  type ReactElement,
+  type ReactNode,
+} from "react";
+import { twMerge } from "tailwind-merge";
+import { useTheme } from "./theme";
+import { useTimelineItem } from "./TimelineItem";
+
+export interface TimelineConnectorProps
+  extends HTMLAttributes<HTMLSpanElement> {
+  className?: string;
+  children?: ReactNode;
+}
+
+export const TimelineConnector = forwardRef<
+  HTMLSpanElement,
+  TimelineConnectorProps
+>(({ className, children, ...rest }, ref) => {
+  const {
+    timelineConnector: {
+      styles: { base },
+    },
+  } = useTheme();
+  const { width } = useTimelineItem();
+
+  const lineClasses = objectsToString(base.line);
+  const containerClasses = twMerge(objectsToString(base.container), className);
+
+  return (
+    <span
+      {...rest}
+      ref={ref}
+      className={containerClasses}
+      style={{
+        top: `${width}px`,
+        width: `${width}px`,
+        opacity: width ? 1 : 0,
+        height: `calc(100% - ${width}px)`,
+      }}
+    >
+      {children && isValidElement(children) ? (
+        cloneElement(children as ReactElement, {
+          className: twMerge(lineClasses, children.props?.className),
+        })
+      ) : (
+        <span className={lineClasses} />
+      )}
+    </span>
+  );
+});
+
+TimelineConnector.displayName = "TimelineConnector";
+
+export default TimelineConnector;
