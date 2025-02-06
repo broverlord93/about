@@ -15,9 +15,11 @@ export interface TimelineProps extends HTMLAttributes<HTMLUListElement> {
 
 export const Timeline = forwardRef<HTMLUListElement, TimelineProps>(
   ({ className, children, ...rest }, ref) => {
-    const { timeline } = useTheme();
-    const { styles } = timeline;
-    const { base } = styles;
+    const {
+      timeline: {
+        styles: { base },
+      },
+    } = useTheme();
 
     const classes = twMerge(objectsToString(base), className);
 
