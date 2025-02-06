@@ -33,7 +33,8 @@ export const timelineConnector = {
       line: {
         width: "w-0.5",
         height: "h-full",
-        backgroundColor: "bg-blue-gray-100",
+        // TODO: Finalize this color choice
+        backgroundColor: "bg-lemon-chiffon-900",
       },
     },
   },
