@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
+import DateTimePicker from "@components/ui/DateTimePicker";
 import {
   Timeline,
   TimelineBody,
@@ -9,14 +10,25 @@ import {
 } from "@components/ui/timeline";
 import { createFileRoute } from "@tanstack/react-router";
 import { ThumbsUp } from "lucide-react";
+import { useState } from "react";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const [value, setValue] = useState<Date | undefined>();
+
   return (
     <div>
+      <div className={"w-full"}>
+        {value && value.toISOString()}
+        <DateTimePicker
+          onChange={([date]) => {
+            setValue(date);
+          }}
+        />
+      </div>
       <Timeline>
         <TimelineItem>
           <TimelineConnector />
