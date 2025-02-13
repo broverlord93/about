@@ -2,9 +2,9 @@
 @import "assets/style/base.css";
 
 @import "tailwindcss/components";
-@import "assets/style/components/include.css";
 
 @import "tailwindcss/utilities";
+@import "assets/style/components/include.css";
 
 :root {
     --header-height: 5rem;

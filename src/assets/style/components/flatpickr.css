@@ -1,24 +1,24 @@
 @import "flatpickr/dist/flatpickr.css";
 
-@layer components {
-    .flatpickr-calendar {
-        --day-size: 5rem;
-        --day-padding: calc(var(--day-size) / 16);
-        --day-margin: 0.5rem;
-        width: calc(
-                var(--day-size) * 7 + var(--day-margin) * 14 + var(--day-padding) * 2
-        );
-    }
+.flatpickr-calendar {
+    --day-size: 5rem;
+    --day-padding: calc(var(--day-size) / 16);
+    --day-margin: 0.5rem;
+    width: calc(
+            var(--day-size) * 7 + var(--day-margin) * 14 + var(--day-padding) * 2
+    );
+    @apply bg-lemon-chiffon-100;
+}
 
-    .dayContainer {
-        @apply border-r-0 p-0;
-    }
+.dayContainer {
+    @apply border-r-0 p-0;
+}
 
-    span.flatpickr-day &,
-    &.prevMonthDay,
-    &.nextMonthDay {
-        @apply max-w-none border border-solid border-r-transparent bg-[#e9e9e9];
-    }
+.flatpickr-day,
+&.prevMonthDay,
+&.nextMonthDay {
+    --hover-background: theme(colors.lemon-chiffon.300);
+    @apply max-w-none border border-solid border-r-transparent rounded-md;
 
     &:nth-child(n + 8) {
         @apply border-t-transparent;
@@ -41,42 +41,45 @@
     }
 
     &:hover {
-        background-color: theme(colors.lemon-chiffon.500);
-        border: 1px theme(colors.lemon-chiffon.900);
-        /*@apply border border-lemon-chiffon-900;*/
+        background-color: var(--hover-background) !important;
     }
 
     &.startRange,
     &.endRange {
-        @apply border-lemon-chiffon-900;
+        @apply border-lemon-chiffon-900 rounded-lg;
     }
 
     &.today,
     &.selected {
-        @apply z-10;
+        @apply z-10 bg-lemon-chiffon-700;
     }
 
-    .rangeMode .flatpickr-day {
-        @apply mt-0.5;
-    }
-
-    .flatpickr-weekwrapper .flatpickr-weeks {
-        @apply shadow-none;
-    }
-
-    .flatpickr-weekwrapper span.flatpickr-day {
-        @apply mx-0 my-0.5 border-0;
-    }
-
-    .hasWeeks .flatpickr-days {
-        @apply border-r-0;
-    }
-
-    @media screen and (min-width: 0\0
-    ) and (min-resolution: +72dpi) {
-        span.flatpickr-day {
-            display: block;
-            flex: 1 0 auto;
-        }
+    &.inRange {
+        @apply bg-lemon-chiffon-50;
     }
 }
+
+.rangeMode .flatpickr-day {
+    @apply mt-0.5;
+}
+
+.flatpickr-weekwrapper .flatpickr-weeks {
+    @apply shadow-none;
+}
+
+.flatpickr-weekwrapper span.flatpickr-day {
+    @apply mx-0 my-0.5 border-0;
+}
+
+.hasWeeks .flatpickr-days {
+    @apply border-r-0;
+}
+
+@media screen and (min-width: 0\0
+) and (min-resolution: +72dpi) {
+    span.flatpickr-day {
+        display: block;
+        flex: 1 0 auto;
+    }
+}
+

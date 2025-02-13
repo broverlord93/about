@@ -27,6 +27,7 @@ function RouteComponent() {
           onChange={([date]) => {
             setValue(date);
           }}
+          options={{ mode: "range" }}
         />
       </div>
       <Timeline>
