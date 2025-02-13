@@ -7,7 +7,7 @@
     width: calc(
             var(--day-size) * 7 + var(--day-margin) * 14 + var(--day-padding) * 2
     );
-    @apply bg-lemon-chiffon-100;
+    @apply bg-lemon-chiffon-100 text-lemon-chiffon-900;
 }
 
 .dayContainer {
@@ -42,20 +42,28 @@
 
     &:hover {
         background-color: var(--hover-background) !important;
+        @apply text-lemon-chiffon-900
     }
 
     &.startRange,
     &.endRange {
         @apply border-lemon-chiffon-900 rounded-lg;
+
+        &.inRange, &.selected {
+            @apply bg-sugar-cane-700 text-lemon-chiffon-100;
+        }
     }
 
-    &.today,
-    &.selected {
-        @apply z-10 bg-lemon-chiffon-700;
+    &.today {
+        @apply rounded-full;
+
+        &.selected {
+            @apply z-10;
+        }
     }
 
     &.inRange {
-        @apply bg-lemon-chiffon-50;
+        @apply bg-sugar-cane-200 border-sugar-cane-200 shadow-none;
     }
 }
 
