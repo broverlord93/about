@@ -2,18 +2,58 @@
 
 .flatpickr-calendar {
     @apply bg-lemon-chiffon-100;
+
+    &.arrowTop {
+
+        &:before, &:after {
+            @apply border-b-sugar-cane-700;
+        }
+    }
+
+    &.hasTime {
+        .flatpickr-time {
+            @apply border-t-husk-200;
+        }
+    }
+}
+
+.flatpickr-time {
+
+    .numInputWrapper {
+        @apply hover:bg-sugar-cane-200 text-lemon-chiffon-900;
+
+        span.arrowUp, span.arrowDown {
+            @apply border-0;
+        }
+
+        span.arrowUp {
+            &:after {
+                @apply border-b-lemon-chiffon-900;
+            }
+        }
+
+        span.arrowDown {
+            &:after {
+                @apply border-t-lemon-chiffon-900;
+            }
+        }
+    }
+
+    input, span.flatpickr-am-pm {
+        @apply text-lemon-chiffon-900 font-bold hover:bg-sugar-cane-200;
+    }
 }
 
 .flatpickr-day {
     @apply text-lemon-chiffon-900 font-bold;
 
     &.prevMonthDay, &.nextMonthDay {
-        @apply text-husk-200 hover:bg-sugar-cane-200
+        @apply text-husk-200 hover:bg-sugar-cane-200;
     }
 }
 
 span.flatpickr-weekday {
-    @apply font-bold text-lemon-chiffon-900
+    @apply font-bold text-lemon-chiffon-900;
 }
 
 
@@ -36,11 +76,11 @@ span.flatpickr-weekday {
                 @apply hover:bg-sugar-cane-600 rounded-lg;
 
                 .arrowUp:after {
-                    @apply border-b-lemon-chiffon-50
+                    @apply border-b-lemon-chiffon-50;
                 }
 
                 .arrowDown:after {
-                    @apply border-t-lemon-chiffon-50
+                    @apply border-t-lemon-chiffon-50;
                 }
 
                 .arrowDown, .arrowUp {
