@@ -1,69 +1,72 @@
 @import "flatpickr/dist/flatpickr.css";
 
 .flatpickr-calendar {
-    --day-size: 5rem;
-    --day-padding: calc(var(--day-size) / 16);
-    --day-margin: 0.5rem;
-    width: calc(
-            var(--day-size) * 7 + var(--day-margin) * 14 + var(--day-padding) * 2
-    );
-    @apply bg-lemon-chiffon-100 text-lemon-chiffon-900;
+    @apply bg-lemon-chiffon-100;
 }
 
-.dayContainer {
-    @apply border-r-0 p-0;
+.flatpickr-day {
+    @apply text-lemon-chiffon-900 font-bold;
+
+    &.prevMonthDay, &.nextMonthDay {
+        @apply text-husk-200 hover:bg-sugar-cane-200
+    }
+}
+
+span.flatpickr-weekday {
+    @apply font-bold text-lemon-chiffon-900
+}
+
+
+.flatpickr-months {
+    @apply bg-sugar-cane-700;
+
+    .flatpickr-month {
+        @apply text-lemon-chiffon-50 fill-lemon-chiffon-50;
+
+        .flatpickr-current-month {
+            .flatpickr-monthDropdown-months, .numInputWrapper {
+                @apply hover:bg-sugar-cane-600 rounded-lg;
+
+                .arrowUp:after {
+                    @apply border-b-lemon-chiffon-50
+                }
+
+                .arrowDown:after {
+                    @apply border-t-lemon-chiffon-50
+                }
+
+                .arrowDown, .arrowUp {
+                    @apply hover:bg-transparent;
+                }
+            }
+        }
+    }
 }
 
 .flatpickr-day,
 &.prevMonthDay,
 &.nextMonthDay {
-    --hover-background: theme(colors.lemon-chiffon.300);
-    @apply max-w-none border border-solid border-r-transparent rounded-md;
-
-    &:nth-child(n + 8) {
-        @apply border-t-transparent;
-    }
-
-    &:nth-child(7n-6) {
-        @apply border-l-0;
-    }
-
-    &:nth-child(n + 36) {
-        @apply border-b-0;
-    }
-
-    &:nth-child(-n + 7) {
-        @apply mt-0;
-    }
+    @apply max-w-none hover:bg-sugar-cane-700 hover:rounded-full hover:text-lemon-chiffon-50;
 
     &.today:not(.selected) {
-        @apply border-y-transparent border-b-lemon-chiffon-500 border-t-lemon-chiffon-900;
-    }
-
-    &:hover {
-        background-color: var(--hover-background) !important;
-        @apply text-lemon-chiffon-900
+        @apply border-sugar-cane-700 hover:bg-sugar-cane-700 hover:text-lemon-chiffon-50;
     }
 
     &.startRange,
     &.endRange {
-        @apply border-lemon-chiffon-900 rounded-lg;
-
-        &.inRange, &.selected {
-            @apply bg-sugar-cane-700 text-lemon-chiffon-100;
-        }
+        @apply border-sugar-cane-700 rounded-lg !bg-sugar-cane-700 !text-lemon-chiffon-50;
     }
 
     &.today {
         @apply rounded-full;
 
         &.selected {
-            @apply z-10;
+            @apply z-10 bg-sugar-cane-700;
         }
     }
 
     &.inRange {
-        @apply bg-sugar-cane-200 border-sugar-cane-200 shadow-none;
+        @apply !bg-sugar-cane-200 !border-sugar-cane-200 shadow-none hover:rounded-none;
     }
 }
 
