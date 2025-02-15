@@ -20,8 +20,16 @@ span.flatpickr-weekday {
 .flatpickr-months {
     @apply bg-sugar-cane-700;
 
+    .flatpickr-next-month, .flatpickr-prev-month {
+        @apply fill-lemon-chiffon-50;
+
+        &:hover svg {
+            @apply fill-lemon-chiffon-500;
+        }
+    }
+
     .flatpickr-month {
-        @apply text-lemon-chiffon-50 fill-lemon-chiffon-50;
+        @apply text-lemon-chiffon-50;
 
         .flatpickr-current-month {
             .flatpickr-monthDropdown-months, .numInputWrapper {
