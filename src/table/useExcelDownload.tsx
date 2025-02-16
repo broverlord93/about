@@ -1,4 +1,4 @@
-import { ERROR, IDLE, LOADING } from "@src/constants";
+import { Status, STATUSES } from "@src/constants";
 import type {
   ColumnDef,
   HeaderGroup,
@@ -19,6 +19,8 @@ type useExcelProps = {
   fileName: string;
   sheets: Array<Sheet>;
 };
+
+const { ERROR, IDLE, LOADING } = STATUSES;
 
 const isExportable = (column: ColumnDef<RowData>) =>
   !!column.meta?.isExportable;
@@ -91,7 +93,7 @@ const prepareSheet = async (sheet: Sheet) => {
 const useExcelDownload = ({ fileName, sheets }: useExcelProps) => {
   const workbook = excel.book_new();
 
-  const [status, setStatus] = useState(IDLE);
+  const [status, setStatus] = useState<Status>(IDLE);
 
   const download = async () => {
     setStatus(LOADING);
