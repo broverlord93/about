@@ -1,37 +1,33 @@
-// import { mdiClose } from "@mdi/js";
-// import Icon from "@mdi/react";
-// import DebouncedInput from "@mycomponents/common/DebouncedInput";
-// import type { Column, RowData } from "@tanstack/react-table";
-// import { InputGroup, InputGroupText } from "reactstrap";
-//
-// const DefaultTextFilter = <TData extends RowData, TValue = unknown>({
-//   column: { getFilterValue, setFilterValue },
-//   searchLocation = "",
-//   searchType = "",
-// }: {
-//   column: Column<TData, TValue>;
-//   searchLocation?: string;
-//   searchType?: string;
-// }) => {
-//   return (
-//     <>
-//       <InputGroup>
-//         <DebouncedInput
-//           debounce={250}
-//           onChange={(value) => setFilterValue(value)}
-//           placeholder={"Search..."}
-//           value={(getFilterValue() as string) || ""}
-//           searchLocation={searchLocation}
-//           searchType={searchType}
-//         />
-//         <InputGroupText onClick={() => setFilterValue(undefined)}>
-//           <span style={{ cursor: "pointer" }}>
-//             <Icon path={mdiClose} size={1} />
-//           </span>
-//         </InputGroupText>
-//       </InputGroup>
-//     </>
-//   );
-// };
-//
-// export default DefaultTextFilter;
+import DebouncedInput from "@components/ui/DebouncedInput";
+import type { Column, RowData } from "@tanstack/react-table";
+import { X } from "lucide-react";
+
+const DefaultTextFilter = <TData extends RowData, TValue = unknown>({
+  column: { getFilterValue, setFilterValue },
+}: {
+  column: Column<TData, TValue>;
+}) => {
+  return (
+    <div className="relative mb-4 flex items-stretch">
+      <div className="relative">
+        <DebouncedInput
+          debounce={250}
+          onDebouncedChange={(value) => setFilterValue(value)}
+          placeholder={"Search..."}
+          value={(getFilterValue() as string) || ""}
+        />
+        <span
+          className={
+            "absolute right-2.5 top-2.5 h-5 w-5 text-lemon-chiffon-900"
+          }
+          onClick={() => setFilterValue(undefined)}
+          style={{ cursor: "pointer" }}
+        >
+          <X />
+        </span>
+      </div>
+    </div>
+  );
+};
+
+export default DefaultTextFilter;
