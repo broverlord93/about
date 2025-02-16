@@ -47,9 +47,7 @@ interface ActionPayload {
 
 type Action = Actions<ActionPayload>[keyof ActionPayload];
 
-const KEYS = ["enter", "escape", "tab"] as const;
-
-type Key = (typeof KEYS)[number];
+type Key = "enter" | "escape" | "tab";
 
 type KeyUp = Record<Key, boolean>;
 
@@ -123,7 +121,7 @@ const useInput = ({
     }, debounce ?? 0);
 
     return () => clearTimeout(timeout);
-  }, [debounce, state.value]);
+  }, [debounce, dispatch, state.value]);
 
   const isValid = validate ? validate(state.value) : null;
 
