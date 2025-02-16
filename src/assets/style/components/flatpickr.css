@@ -1,7 +1,7 @@
 @import "flatpickr/dist/flatpickr.css";
 
 .flatpickr-calendar {
-    @apply bg-lemon-chiffon-100;
+    @apply bg-lemon-chiffon-100 rounded-md shadow-md shadow-husk-100;
 
     &.arrowTop {
 
@@ -39,6 +39,10 @@
         }
     }
 
+    span.flatpickr-time-separator {
+        @apply text-lemon-chiffon-900;
+    }
+
     input, span.flatpickr-am-pm {
         @apply text-lemon-chiffon-900 font-bold hover:bg-sugar-cane-200;
     }
@@ -58,7 +62,7 @@ span.flatpickr-weekday {
 
 
 .flatpickr-months {
-    @apply bg-sugar-cane-700;
+    @apply bg-sugar-cane-700 rounded-t-md;
 
     .flatpickr-next-month, .flatpickr-prev-month {
         @apply fill-lemon-chiffon-50;
