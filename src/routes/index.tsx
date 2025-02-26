@@ -272,21 +272,17 @@ function RouteComponent() {
           }}
         />
       </div>
-      <Card className={"bg-lemon-chiffon-100"}>
-        <CardHeader>
-          <CardTitle className={"text-lemon-chiffon-900"}>Data Table</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <ScrollArea className={"h-96"}>
-            <DataTable
-              columns={tableColumns}
-              data={tableData}
-              isRowExpansionEnabled
-              expandedRowComponent={expandedRowComponent}
-            />
-          </ScrollArea>
-        </CardContent>
-      </Card>
+      <div className={"w-full"}>
+        <ScrollArea className={"h-96"}>
+          <DataTable
+            headerClassName={"bg-sugar-cane-100"}
+            columns={tableColumns}
+            data={tableData}
+            isRowExpansionEnabled
+            expandedRowComponent={expandedRowComponent}
+          />
+        </ScrollArea>
+      </div>
     </div>
   );
 }
