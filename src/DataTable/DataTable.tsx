@@ -7,6 +7,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { cn } from "@lib/utils";
 import {
   type ColumnDef,
   createColumnHelper,
@@ -46,12 +47,17 @@ interface BaseProps<TData extends RowData> {
   bordered?: boolean;
   columns: ColumnDef<TData>[];
   data: TData[];
-  hover?: boolean;
   maxHeight?: number;
   striped?: boolean;
-  tableName?: string;
   stretchToFitWidth?: boolean;
   refreshUnexpandedState?: boolean;
+  // Style overrides
+  bodyClassName?: string;
+  cellClassName?: string;
+  className?: string;
+  footerClassName?: string;
+  headerClassName?: string;
+  rowClassName?: string;
 }
 
 interface ColumnFilteringEnabled {
@@ -209,6 +215,12 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
   // sheetName = "Data",
   // stretchToFitWidth = false,
   // striped = true,
+  bodyClassName = "",
+  cellClassName = "",
+  className = "",
+  footerClassName = "",
+  headerClassName = "",
+  rowClassName = "",
 }: DataTableProps<TData>) => {
   const getSubRows = (row: TData) => row.subRows;
   const hasSubRows = !!data.find(getSubRows);
@@ -315,10 +327,10 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
   }, [refreshUnexpandedState, toggleAllRowsExpanded]);
 
   return (
-    <Table>
-      <TableHeader>
+    <Table className={className}>
+      <TableHeader className={cn("sticky top-0 z-10", headerClassName)}>
         {getHeaderGroups().map((headerGroup) => (
-          <TableRow key={headerGroup.id}>
+          <TableRow className={rowClassName} key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
               const { column, getContext, getSize, id, isPlaceholder } = header;
               const {
@@ -330,13 +342,10 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
 
               return (
                 <TableHead
-                  key={`header_${id}`}
                   colSpan={header.colSpan || 1}
+                  key={`header_${id}`}
                   style={{
-                    position: "sticky",
-                    top: -1,
                     ...(getSize() && { width: getSize() }),
-                    zIndex: 69,
                   }}
                 >
                   {isPlaceholder ? null : (
@@ -391,13 +400,13 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
           </TableRow>
         ))}
       </TableHeader>
-      <TableBody>
+      <TableBody className={cn("z-0", bodyClassName)}>
         {getRowModel().rows.map((row) => {
           return (
             <Fragment key={`body_${row.id}`}>
-              <TableRow>
+              <TableRow className={rowClassName}>
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell className={cellClassName} key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -409,8 +418,11 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
                 ? null
                 : expandedRowComponent &&
                   row.getIsExpanded() && (
-                    <TableRow>
-                      <TableCell colSpan={row.getVisibleCells().length}>
+                    <TableRow className={rowClassName}>
+                      <TableCell
+                        className={cellClassName}
+                        colSpan={row.getVisibleCells().length}
+                      >
                         {(() => {
                           return expandedRowComponent(row);
                         })()}
@@ -422,7 +434,9 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
         })}
       </TableBody>
       {getFooterGroups().length > 0 && (
-        <TableFooter>
+        <TableFooter
+          className={cn("sticky bottom-0 border-none", footerClassName)}
+        >
           {getFooterGroups().map((footerGroup) => (
             <TableRow key={footerGroup.id}>
               {footerGroup.headers.map(
@@ -435,15 +449,7 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
                     columnDef: { footer },
                   },
                 }) => (
-                  <TableHead
-                    colSpan={colSpan || 1}
-                    key={`footer_${id}`}
-                    style={{
-                      border: "none",
-                      position: "sticky",
-                      bottom: 0,
-                    }}
-                  >
+                  <TableHead colSpan={colSpan || 1} key={`footer_${id}`}>
                     {isPlaceholder ? null : flexRender(footer, getContext())}
                   </TableHead>
                 ),
