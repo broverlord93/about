@@ -1,6 +1,7 @@
-import { DataTable, TableData } from "@/table";
+import { DataTable, TableData } from "@/DataTable";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import DateTimePicker from "@components/ui/DateTimePicker";
+import { ScrollArea } from "@components/ui/scroll-area";
 import {
   Select,
   SelectContent,
@@ -271,17 +272,19 @@ function RouteComponent() {
           }}
         />
       </div>
-      <Card className={"bg-sugar-cane-700"}>
+      <Card className={"bg-lemon-chiffon-100"}>
         <CardHeader>
-          <CardTitle className={"text-lemon-chiffon-50"}>Data Table</CardTitle>
+          <CardTitle className={"text-lemon-chiffon-900"}>Data Table</CardTitle>
         </CardHeader>
         <CardContent>
-          <DataTable
-            columns={tableColumns}
-            data={tableData}
-            isRowExpansionEnabled
-            expandedRowComponent={expandedRowComponent}
-          />
+          <ScrollArea className={"h-96"}>
+            <DataTable
+              columns={tableColumns}
+              data={tableData}
+              isRowExpansionEnabled
+              expandedRowComponent={expandedRowComponent}
+            />
+          </ScrollArea>
         </CardContent>
       </Card>
     </div>
