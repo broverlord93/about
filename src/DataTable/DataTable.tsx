@@ -318,6 +318,15 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
     toggleAllRowsExpanded,
   } = useReactTable(options);
 
+  // Workaround to prevent erroneously rendering footer when not in ColumnDef
+  // See: https://github.com/TanStack/table/discussions/5023#discussioncomment-8572450
+  const footers = getFooterGroups()
+    .map((group) =>
+      group.headers.map((header) => header.column.columnDef.footer),
+    )
+    .flat()
+    .filter(Boolean);
+
   if (isRowExpansionEnabled || hasSubRows) {
     if (isInitiallyExpanded) toggleAllRowsExpanded(true);
   }
@@ -433,7 +442,7 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
           );
         })}
       </TableBody>
-      {getFooterGroups().length > 0 && (
+      {footers.length > 0 && (
         <TableFooter
           className={cn("sticky bottom-0 border-none", footerClassName)}
         >
