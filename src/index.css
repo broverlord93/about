@@ -1,10 +1,80 @@
-@import "tailwindcss/base";
+@import "tailwindcss";
 @import "assets/style/base.css";
-
-@import "tailwindcss/components";
-
-@import "tailwindcss/utilities";
 @import "assets/style/components/include.css";
+
+@theme {
+    --color-husk-50: #f7f6ef;
+    --color-husk-100: #eae9d7;
+    --color-husk-200: #d6d3b2;
+    --color-husk-300: #bfb885;
+    --color-husk-400: #b4a972;
+    --color-husk-500: #9d8d55;
+    --color-husk-600: #877447;
+    --color-husk-700: #6d5a3b;
+    --color-husk-800: #5c4c37;
+    --color-husk-900: #514232;
+    --color-husk-950: #2e241a;
+
+    --color-lemon-chiffon-50: #fefcec;
+    --color-lemon-chiffon-100: #fcf8cf;
+    --color-lemon-chiffon-200: #f8ef8f;
+    --color-lemon-chiffon-300: #f5e154;
+    --color-lemon-chiffon-400: #f2d12d;
+    --color-lemon-chiffon-500: #ebb315;
+    --color-lemon-chiffon-600: #d08b0f;
+    --color-lemon-chiffon-700: #ad6510;
+    --color-lemon-chiffon-800: #8c4e14;
+    --color-lemon-chiffon-900: #744113;
+    --color-lemon-chiffon-950: #422206;
+
+    --color-pipi-50: #fefaec;
+    --color-pipi-100: #fbf1ca;
+    --color-pipi-200: #f7e290;
+    --color-pipi-300: #f2cd57;
+    --color-pipi-400: #efb930;
+    --color-pipi-500: #e89a18;
+    --color-pipi-600: #cd7512;
+    --color-pipi-700: #ab5312;
+    --color-pipi-800: #8b4215;
+    --color-pipi-900: #723715;
+    --color-pipi-950: #411b07;
+
+    --color-sugar-cane-50: #f7fbf3;
+    --color-sugar-cane-100: #ebf6e2;
+    --color-sugar-cane-200: #d7edc5;
+    --color-sugar-cane-300: #b7dd98;
+    --color-sugar-cane-400: #8fc464;
+    --color-sugar-cane-500: #6da93e;
+    --color-sugar-cane-600: #578b2e;
+    --color-sugar-cane-700: #466d28;
+    --color-sugar-cane-800: #3a5724;
+    --color-sugar-cane-900: #30481f;
+    --color-sugar-cane-950: #17270c;
+
+    --color-tradewind-50: #f3faf9;
+    --color-tradewind-100: #d6f1ea;
+    --color-tradewind-200: #ace3d5;
+    --color-tradewind-300: #7bcdbc;
+    --color-tradewind-400: #63baab;
+    --color-tradewind-500: #369687;
+    --color-tradewind-600: #29786d;
+    --color-tradewind-700: #246159;
+    --color-tradewind-800: #214e49;
+    --color-tradewind-900: #1f423d;
+    --color-tradewind-950: #0d2625;
+
+    --color-wax-flower-50: #fff3ed;
+    --color-wax-flower-100: #ffe4d5;
+    --color-wax-flower-200: #ffc4a8;
+    --color-wax-flower-300: #ff9c72;
+    --color-wax-flower-400: #fd683a;
+    --color-wax-flower-500: #fc4113;
+    --color-wax-flower-600: #ed2609;
+    --color-wax-flower-700: #c4180a;
+    --color-wax-flower-800: #9c1510;
+    --color-wax-flower-900: #7d1511;
+    --color-wax-flower-950: #440706;
+}
 
 :root {
     --header-height: 5rem;
