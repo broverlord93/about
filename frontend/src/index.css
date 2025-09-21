@@ -1,6 +1,6 @@
 @import "tailwindcss";
-@import "assets/style/base.css";
-@import "assets/style/components/include.css";
+@import "./assets/style/base.css";
+@import "./assets/style/components/include.css";
 
 @theme {
     --color-husk-50: #f7f6ef;

@@ -4,9 +4,10 @@
     "module": "NodeNext",
     "moduleResolution": "Bundler",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
   "include": [
-    "vite.config"
+    "vite.config.ts"
   ]
 }
