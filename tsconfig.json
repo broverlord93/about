@@ -1,14 +1,5 @@
 {
-  "include": [
-    "src"
-  ],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    }
-  ],
   "compilerOptions": {
-    "strictNullChecks": true,
     "useDefineForClassFields": true,
     "skipLibCheck": true,
     "module": "ESNext",
@@ -22,7 +13,6 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noImplicitAny": true,
     /* INTEROP */
     "allowSyntheticDefaultImports": true,
     "lib": [
@@ -58,5 +48,13 @@
         "src/types/*"
       ]
     }
-  }
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
