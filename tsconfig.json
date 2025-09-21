@@ -1,4 +1,12 @@
 {
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
   "compilerOptions": {
     "strictNullChecks": true,
     "useDefineForClassFields": true,
@@ -49,14 +57,6 @@
       "@type-defs/*": [
         "src/types/*"
       ]
-    },
-    "include": [
-      "src"
-    ],
-    "references": [
-      {
-        "path": "./tsconfig.node.json"
-      }
-    ]
+    }
   }
 }
