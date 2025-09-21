@@ -15,6 +15,7 @@
     "noUnusedParameters": true,
     /* INTEROP */
     "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
     "lib": [
       "ESNext",
       "DOM",

@@ -1,21 +1,21 @@
+import tailwindcss from "@tailwindcss/postcss";
 import { tanstackRouter } from "@tanstack/router-plugin/vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
-import tailwindcss from "@tailwindcss/postcss";
 import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [
     tanstackRouter({
       target: "react",
-      autoCodeSplitting: true,
+      autoCodeSplitting: true
     }),
-    react(),
+    react()
   ],
   css: {
     postcss: {
-      plugins: [tailwindcss()],
-    },
+      plugins: [tailwindcss()]
+    }
   },
   resolve: {
     alias: {
@@ -26,10 +26,10 @@ export default defineConfig({
       "@redux": path.resolve(__dirname, "src/redux"),
       "@routes": path.resolve(__dirname, "src/routes"),
       "@src": path.resolve(__dirname, "src"),
-      "@type-defs": path.resolve(__dirname, "src/types"),
-    },
+      "@type-defs": path.resolve(__dirname, "src/types")
+    }
   },
   server: {
-    port: 8000,
-  },
+    port: 8000
+  }
 });

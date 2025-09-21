@@ -3,8 +3,7 @@ import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
-  darkMode: ["selector"],
-  mode: "jit",
+  darkMode: ["selector", "[data-theme='dark']"],
   plugins: [tailwindcssAnimate],
   theme: {
     colors: {

@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      about-frontend:
+        specifier: workspace:*
+        version: link:frontend
+
+  frontend:
+    dependencies:
       '@floating-ui/react':
         specifier: ^0.27.16
         version: 0.27.16(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
