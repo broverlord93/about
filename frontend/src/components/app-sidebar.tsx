@@ -1,68 +1,175 @@
+import { NavMain } from "@/components/nav-main";
+import { NavProjects } from "@/components/nav-projects";
+import { NavSecondary } from "@/components/nav-secondary";
+import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarFooter,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarMenuItem
 } from "@/components/ui/sidebar";
-import { Home, Settings } from "lucide-react";
-import type { FC } from "react";
-import Brand from "./Brand";
-import GithubIcon from "./icons/GithubIcon";
-import LinkedInIcon from "./icons/LinkedInIcon";
+import { BookOpen, Bot, Command, Frame, LifeBuoy, Map, PieChart, Send, Settings2, SquareTerminal } from "lucide-react";
+import * as React from "react";
 
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
+const data = {
+  user: {
+    name: "shadcn",
+    email: "m@example.com",
+    avatar: "/avatars/shadcn.jpg"
   },
-  {
-    title: "Github",
-    url: "https://github.com/broverlord93",
-    icon: GithubIcon,
-  },
-  {
-    title: "LinkedIn",
-    url: "https://www.linkedin.com/in/anthonylimani",
-    icon: LinkedInIcon,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-];
+  navMain: [
+    {
+      title: "Playground",
+      url: "#",
+      icon: SquareTerminal,
+      isActive: true,
+      items: [
+        {
+          title: "History",
+          url: "#"
+        },
+        {
+          title: "Starred",
+          url: "#"
+        },
+        {
+          title: "Settings",
+          url: "#"
+        }
+      ]
+    },
+    {
+      title: "Models",
+      url: "#",
+      icon: Bot,
+      items: [
+        {
+          title: "Genesis",
+          url: "#"
+        },
+        {
+          title: "Explorer",
+          url: "#"
+        },
+        {
+          title: "Quantum",
+          url: "#"
+        }
+      ]
+    },
+    {
+      title: "Documentation",
+      url: "#",
+      icon: BookOpen,
+      items: [
+        {
+          title: "Introduction",
+          url: "#"
+        },
+        {
+          title: "Get Started",
+          url: "#"
+        },
+        {
+          title: "Tutorials",
+          url: "#"
+        },
+        {
+          title: "Changelog",
+          url: "#"
+        }
+      ]
+    },
+    {
+      title: "Settings",
+      url: "#",
+      icon: Settings2,
+      items: [
+        {
+          title: "General",
+          url: "#"
+        },
+        {
+          title: "Team",
+          url: "#"
+        },
+        {
+          title: "Billing",
+          url: "#"
+        },
+        {
+          title: "Limits",
+          url: "#"
+        }
+      ]
+    }
+  ],
+  navSecondary: [
+    {
+      title: "Support",
+      url: "#",
+      icon: LifeBuoy
+    },
+    {
+      title: "Feedback",
+      url: "#",
+      icon: Send
+    }
+  ],
+  projects: [
+    {
+      name: "Design Engineering",
+      url: "#",
+      icon: Frame
+    },
+    {
+      name: "Sales & Marketing",
+      url: "#",
+      icon: PieChart
+    },
+    {
+      name: "Travel",
+      url: "#",
+      icon: Map
+    }
+  ]
+};
 
-const AppSidebar: FC = () => {
+const AppSidebar = ({ ...props }: React.ComponentProps<typeof Sidebar>) => {
   return (
-    <Sidebar className={"shadow-md"}>
+    <Sidebar
+      className="!top-[var(--header-height)] !h-[calc(100svh-var(--header-height))]"
+      {...props}
+    >
       <SidebarHeader>
-        <Brand className={"brand"} />
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton size="lg" asChild>
+              <a href="#">
+                <div
+                  className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                  <Command className="size-4" />
+                </div>
+                <div className="grid flex-1 text-left text-sm leading-tight">
+                  <span className="truncate font-semibold">Acme Inc</span>
+                  <span className="truncate text-xs">Enterprise</span>
+                </div>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel></SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
-                      <item.icon className={"h-2 w-2"} />
-                      <span>{item.title}</span>
-                    </a>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        <NavMain items={data.navMain} />
+        <NavProjects projects={data.projects} />
+        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={data.user} />
+      </SidebarFooter>
     </Sidebar>
   );
 };
