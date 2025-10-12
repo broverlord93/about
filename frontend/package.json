@@ -51,21 +51,15 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "@types/react-flatpickr": "^3.8.11",
-    "@typescript-eslint/eslint-plugin": "^8.46.0",
-    "@typescript-eslint/parser": "^8.46.0",
     "@vitejs/plugin-react": "^5.0.4",
-    "eslint": "catalog:",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.23",
-    "prettier": "catalog:",
-    "prettier-plugin-tailwindcss": "catalog:",
-    "typescript": "catalog:",
     "vite": "^7.1.9"
   },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint . --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,json,css}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,js,jsx,json,css}\""

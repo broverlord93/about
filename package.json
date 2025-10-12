@@ -8,12 +8,20 @@
     "about-frontend": "workspace:*"
   },
   "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@typescript-eslint/eslint-plugin": "catalog:",
+    "@typescript-eslint/parser": "catalog:",
+    "eslint": "catalog:",
+    "globals": "catalog:",
     "prettier": "catalog:",
-    "prettier-plugin-tailwindcss": "catalog:"
+    "prettier-plugin-tailwindcss": "catalog:",
+    "typescript": "catalog:"
   },
   "scripts": {
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,css,md}\"",
-    "format:frontend": "prettier --write \"frontend/src/**/*.{ts,tsx,js,jsx,json,css}\""
+    "format:frontend": "prettier --write \"frontend/src/**/*.{ts,tsx,js,jsx,json,css}\"",
+    "lint": "eslint .",
+    "lint:frontend": "eslint frontend"
   }
 }
