@@ -3,18 +3,14 @@ import { FC, PropsWithChildren } from "react";
 
 const Body: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <main
-      className={
-        "fixed left-[var(--sidebar-width)] top-[var(--header-height)] h-[calc(100vh-var(--header-height))] w-[calc(100vw-var(--sidebar-width))] px-2 py-2"
-      }
-    >
+    <div className="flex flex-col h-full p-2">
       <Card className={"h-full shadow-md"}>
         <CardHeader>
           <CardTitle></CardTitle>
         </CardHeader>
         <CardContent>{children}</CardContent>
       </Card>
-    </main>
+    </div>
   );
 };
 
