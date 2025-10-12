@@ -192,6 +192,8 @@
     --sidebar-accent-foreground: var(--color-jet-950);
     --sidebar-border: var(--color-jet-200);
     --sidebar-ring: var(--color-sea-green-500);
+    --navbar: var(--color-jet-950);
+    --navbar-foreground: var(--color-jet-50);
 }
 
 .dark {
