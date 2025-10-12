@@ -5,7 +5,7 @@ const Body: FC<PropsWithChildren> = ({ children }) => {
   return (
     <main
       className={
-        "fixed left-[var(--sidebar-width)] top-[var(--header-height)] h-[calc(100vh_-_var(--header-height))] w-[calc(100vw_-_var(--sidebar-width))] px-2 py-2"
+        "fixed left-[var(--sidebar-width)] top-[var(--header-height)] h-[calc(100vh-var(--header-height))] w-[calc(100vw-var(--sidebar-width))] px-2 py-2"
       }
     >
       <Card className={"h-full shadow-md"}>
