@@ -16,43 +16,21 @@
     /* INTEROP */
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "lib": [
-      "ESNext",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@assets/*": [
-        "src/assets/*"
-      ],
-      "@components/*": [
-        "src/components/*"
-      ],
-      "@lib/*": [
-        "src/lib/*"
-      ],
-      "@redux/*": [
-        "src/redux/*"
-      ],
-      "@routes/*": [
-        "src/routes/*"
-      ],
-      "@src/*": [
-        "src/*"
-      ],
-      "@type-defs/*": [
-        "src/types/*"
-      ]
+      "@/*": ["./src/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/components/*"],
+      "@lib/*": ["src/lib/*"],
+      "@redux/*": ["src/redux/*"],
+      "@routes/*": ["src/routes/*"],
+      "@src/*": ["src/*"],
+      "@type-defs/*": ["src/types/*"]
     }
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "references": [
     {
       "path": "./tsconfig.node.json"

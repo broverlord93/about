@@ -18,7 +18,7 @@ const DefaultTextFilter = <TData extends RowData, TValue = unknown>({
         />
         <span
           className={
-            "absolute right-2.5 top-2.5 h-5 w-5 text-lemon-chiffon-900"
+            "text-lemon-chiffon-900 absolute right-2.5 top-2.5 h-5 w-5"
           }
           onClick={() => setFilterValue(undefined)}
           style={{ cursor: "pointer" }}

@@ -23,7 +23,7 @@ const IndeterminateCheckbox = forwardRef<
       onCheckedChange={onCheckedChange}
       ref={ref}
       className={cn(
-        "ring-offset-white peer h-4 w-4 shrink-0 rounded-sm border border-lemon-chiffon-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lemon-chiffon-950 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-lemon-chiffon-900 data-[state=indeterminate]:bg-lemon-chiffon-900 data-[state=checked]:text-lemon-chiffon-50 data-[state=indeterminate]:text-lemon-chiffon-50 dark:border-lemon-chiffon-50 dark:ring-offset-lemon-chiffon-950 dark:focus-visible:ring-lemon-chiffon-300 dark:data-[state=checked]:bg-lemon-chiffon-50 dark:data-[state=indeterminate]:bg-lemon-chiffon-50 dark:data-[state=checked]:text-lemon-chiffon-900 dark:data-[state=indeterminate]:text-lemon-chiffon-900",
+        "border-lemon-chiffon-900 focus-visible:ring-lemon-chiffon-950 data-[state=checked]:bg-lemon-chiffon-900 data-[state=indeterminate]:bg-lemon-chiffon-900 data-[state=checked]:text-lemon-chiffon-50 data-[state=indeterminate]:text-lemon-chiffon-50 dark:border-lemon-chiffon-50 dark:ring-offset-lemon-chiffon-950 dark:focus-visible:ring-lemon-chiffon-300 dark:data-[state=checked]:bg-lemon-chiffon-50 dark:data-[state=indeterminate]:bg-lemon-chiffon-50 dark:data-[state=checked]:text-lemon-chiffon-900 dark:data-[state=indeterminate]:text-lemon-chiffon-900 peer h-4 w-4 shrink-0 rounded-sm border ring-offset-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}

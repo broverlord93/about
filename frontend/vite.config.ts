@@ -8,10 +8,10 @@ export default defineConfig({
   plugins: [
     tanstackRouter({
       target: "react",
-      autoCodeSplitting: true
+      autoCodeSplitting: true,
     }),
     tailwindcss(),
-    react()
+    react(),
   ],
   resolve: {
     alias: {
@@ -22,10 +22,10 @@ export default defineConfig({
       "@redux": path.resolve(__dirname, "src/redux"),
       "@routes": path.resolve(__dirname, "src/routes"),
       "@src": path.resolve(__dirname, "src"),
-      "@type-defs": path.resolve(__dirname, "src/types")
-    }
+      "@type-defs": path.resolve(__dirname, "src/types"),
+    },
   },
   server: {
-    port: 8000
-  }
+    port: 8000,
+  },
 });

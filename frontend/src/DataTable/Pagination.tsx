@@ -114,7 +114,7 @@ const Pagination: FC<PaginationProps> = ({
             }}
             value={`${getPageIndex()}`}
           >
-            <SelectTrigger className={"border-none hover:bg-husk-100"}>
+            <SelectTrigger className={"hover:bg-husk-100 border-none"}>
               <SelectValue placeholder="Select a fruit" />
             </SelectTrigger>
             <SelectContent>
@@ -132,7 +132,7 @@ const Pagination: FC<PaginationProps> = ({
               setPageSize(parseInt(value));
             }}
           >
-            <SelectTrigger className={"border-none hover:bg-husk-100"}>
+            <SelectTrigger className={"hover:bg-husk-100 border-none"}>
               <SelectValue placeholder={`${getPageSize()}`} />
             </SelectTrigger>
             <SelectContent>

@@ -6,7 +6,7 @@ import Body from "./Body";
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <SidebarProvider className="flex flex-col h-screen">
+    <SidebarProvider className="flex h-screen flex-col">
       <Header />
       <div className="flex flex-1 overflow-hidden">
         <AppSidebar />
