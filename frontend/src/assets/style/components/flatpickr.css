@@ -1,25 +1,25 @@
 @import "flatpickr/dist/flatpickr.css";
 
 .flatpickr-calendar {
-  @apply bg-lemon-chiffon-100 shadow-husk-100 rounded-md shadow-md;
+  @apply bg-glacier-100 shadow-jet-100 rounded-md shadow-md;
 
   &.arrowTop {
     &:before,
     &:after {
-      @apply border-b-sugar-cane-700;
+      @apply border-b-jet-700;
     }
   }
 
   &.hasTime {
     .flatpickr-time {
-      @apply border-t-husk-200;
+      @apply border-t-jet-200;
     }
   }
 }
 
 .flatpickr-time {
   .numInputWrapper {
-    @apply hover:bg-sugar-cane-200 text-lemon-chiffon-900;
+    @apply hover:bg-jet-200 text-glacier-900;
 
     span.arrowUp,
     span.arrowDown {
@@ -28,66 +28,66 @@
 
     span.arrowUp {
       &:after {
-        @apply border-b-lemon-chiffon-900;
+        @apply border-b-glacier-900;
       }
     }
 
     span.arrowDown {
       &:after {
-        @apply border-t-lemon-chiffon-900;
+        @apply border-t-glacier-900;
       }
     }
   }
 
   span.flatpickr-time-separator {
-    @apply text-lemon-chiffon-900;
+    @apply text-glacier-900;
   }
 
   input,
   span.flatpickr-am-pm {
-    @apply text-lemon-chiffon-900 hover:bg-sugar-cane-200 font-bold;
+    @apply text-glacier-900 hover:bg-jet-200 font-bold;
   }
 }
 
 .flatpickr-day {
-  @apply text-lemon-chiffon-900 font-bold;
+  @apply text-glacier-900 font-bold;
 
   &.prevMonthDay,
   &.nextMonthDay {
-    @apply text-husk-200 hover:bg-sugar-cane-200;
+    @apply text-jet-200 hover:bg-jet-200;
   }
 }
 
 span.flatpickr-weekday {
-  @apply text-lemon-chiffon-900 font-bold;
+  @apply text-glacier-900 font-bold;
 }
 
 .flatpickr-months {
-  @apply bg-sugar-cane-700 rounded-t-md;
+  @apply bg-jet-700 rounded-t-md;
 
   .flatpickr-next-month,
   .flatpickr-prev-month {
-    @apply fill-lemon-chiffon-50;
+    @apply fill-glacier-50;
 
     &:hover svg {
-      @apply fill-lemon-chiffon-500;
+      @apply fill-glacier-500;
     }
   }
 
   .flatpickr-month {
-    @apply text-lemon-chiffon-50;
+    @apply text-glacier-50;
 
     .flatpickr-current-month {
       .flatpickr-monthDropdown-months,
       .numInputWrapper {
-        @apply hover:bg-sugar-cane-600 rounded-lg;
+        @apply hover:bg-jet-600 rounded-lg;
 
         .arrowUp:after {
-          @apply border-b-lemon-chiffon-50;
+          @apply border-b-glacier-50;
         }
 
         .arrowDown:after {
-          @apply border-t-lemon-chiffon-50;
+          @apply border-t-glacier-50;
         }
 
         .arrowDown,
@@ -102,27 +102,27 @@ span.flatpickr-weekday {
 .flatpickr-day,
 &.prevMonthDay,
 &.nextMonthDay {
-  @apply hover:bg-sugar-cane-700 hover:text-lemon-chiffon-50 max-w-none hover:rounded-full;
+  @apply hover:bg-jet-700 hover:text-glacier-50 max-w-none hover:rounded-full;
 
   &.today:not(.selected) {
-    @apply border-sugar-cane-700 hover:bg-sugar-cane-700 hover:text-lemon-chiffon-50;
+    @apply border-jet-700 hover:bg-jet-700 hover:text-glacier-50;
   }
 
   &.startRange,
   &.endRange {
-    @apply border-sugar-cane-700 !bg-sugar-cane-700 !text-lemon-chiffon-50 rounded-lg;
+    @apply border-jet-700 !bg-jet-700 !text-glacier-50 rounded-lg;
   }
 
   &.today {
     @apply rounded-full;
 
     &.selected {
-      @apply bg-sugar-cane-700 z-10;
+      @apply bg-jet-700 z-10;
     }
   }
 
   &.inRange {
-    @apply !bg-sugar-cane-200 !border-sugar-cane-200 shadow-none hover:rounded-none;
+    @apply !bg-jet-200 !border-jet-200 shadow-none hover:rounded-none;
   }
 }
 
