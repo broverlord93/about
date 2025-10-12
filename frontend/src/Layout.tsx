@@ -10,7 +10,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
       <Header />
       <div className="flex flex-1 overflow-hidden">
         <AppSidebar />
-        <SidebarInset className="overflow-auto bg-[radial-gradient(circle_at_center,var(--color-glacier-100),var(--color-jet-50))]">
+        <SidebarInset className="overflow-auto bg-[radial-gradient(circle_at_center,var(--color-glacier-100),var(--color-white))]">
           <Body>{children}</Body>
         </SidebarInset>
       </div>
