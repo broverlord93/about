@@ -4,7 +4,8 @@
  */
 const config = {
   plugins: ["prettier-plugin-tailwindcss"],
-  tailwindStylesheet: "./src/index.css"
+  tailwindStylesheet: "./frontend/src/index.css"
 };
 
 export default config;
+
