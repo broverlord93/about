@@ -1,4 +1,8 @@
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@components/ui/input-group";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@components/ui/input-group";
 import flatpickr from "flatpickr";
 import { CalendarClock } from "lucide-react";
 import { ComponentProps, type FC } from "react";
@@ -12,11 +16,11 @@ interface Props
 }
 
 export const DateTimePicker: FC<Props> = ({
-                                            inputProps,
-                                            onChange,
-                                            options,
-                                            ...rest
-                                          }) => (
+  inputProps,
+  onChange,
+  options,
+  ...rest
+}) => (
   <Flatpickr
     onChange={onChange}
     options={{ dateFormat: "F j, Y H:i", enableTime: true, ...options }}
@@ -29,9 +33,8 @@ export const DateTimePicker: FC<Props> = ({
           <InputGroupInput
             className={"rounded-none rounded-r-md"}
             ref={ref}
-            {...inputProps}>
-
-          </InputGroupInput>
+            {...inputProps}
+          ></InputGroupInput>
         </InputGroup>
       </div>
     )}
