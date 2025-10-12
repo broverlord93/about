@@ -16,7 +16,7 @@ const SiteHeader = () => {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <header className="bg-navbar sticky top-0 z-50 flex w-full items-center border-b">
+    <header className="bg-navbar text-navbar-foreground sticky top-0 z-50 flex w-full items-center border-b">
       <div className="flex h-[var(--header-height)] w-full items-center gap-2 px-4">
         <Button
           className="h-8 w-8"

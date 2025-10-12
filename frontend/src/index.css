@@ -163,7 +163,7 @@
   --header-height: 3rem;
   --background: var(--color-jet-50);
   --foreground: var(--color-jet-950);
-  --card: var(--color-glacier-50);
+  --card: var(--color-white);
   --card-foreground: var(--color-jet-950);
   --popover: var(--color-glacier-50);
   --popover-foreground: var(--color-jet-950);
@@ -194,7 +194,7 @@
   --sidebar-accent-foreground: var(--color-jet-950);
   --sidebar-border: var(--color-jet-200);
   --sidebar-ring: var(--color-sea-green-500);
-  --navbar: var(--color-glacier-100);
+  --navbar: var(--color-jet-950);
   --navbar-foreground: var(--color-jet-50);
 }
 
