@@ -1,8 +1,8 @@
+import Body from "@/Body";
 import Header from "@/Header";
 import AppSidebar from "@components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@components/ui/sidebar";
 import type { FC, PropsWithChildren } from "react";
-import Body from "./Body";
 
 const Layout: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -10,7 +10,7 @@ const Layout: FC<PropsWithChildren> = ({ children }) => {
       <Header />
       <div className="flex flex-1 overflow-hidden">
         <AppSidebar />
-        <SidebarInset className="overflow-auto">
+        <SidebarInset className="overflow-auto bg-[radial-gradient(circle_at_center,var(--color-glacier-50),var(--color-jet-50))]">
           <Body>{children}</Body>
         </SidebarInset>
       </div>
