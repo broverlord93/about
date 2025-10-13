@@ -1,0 +1,8 @@
+:root {
+  --table-header-bg: var(--muted);
+  --table-row-odd-bg: var(--background);
+  --table-row-hover-bg: var(--accent);
+  --table-border: var(--border);
+  --table-text: var(--foreground);
+}
+
