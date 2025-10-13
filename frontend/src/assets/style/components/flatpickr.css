@@ -1,7 +1,7 @@
 @import "flatpickr/dist/flatpickr.css";
 
 .flatpickr-calendar {
-  @apply bg-glacier-100 shadow-jet-100 rounded-md shadow-md;
+  @apply bg-glacier-50 shadow-jet-100 rounded-md shadow-md;
 
   &.arrowTop {
     &:before,
@@ -19,7 +19,7 @@
 
 .flatpickr-time {
   .numInputWrapper {
-    @apply hover:bg-jet-200 text-glacier-900;
+    @apply hover:bg-jet-200 text-jet-950;
 
     span.arrowUp,
     span.arrowDown {
@@ -28,29 +28,29 @@
 
     span.arrowUp {
       &:after {
-        @apply border-b-glacier-900;
+        @apply border-b-jet-950;
       }
     }
 
     span.arrowDown {
       &:after {
-        @apply border-t-glacier-900;
+        @apply border-t-jet-950;
       }
     }
   }
 
   span.flatpickr-time-separator {
-    @apply text-glacier-900;
+    @apply text-jet-950;
   }
 
   input,
   span.flatpickr-am-pm {
-    @apply text-glacier-900 hover:bg-jet-200 font-bold;
+    @apply text-jet-950 hover:bg-jet-200 font-bold;
   }
 }
 
 .flatpickr-day {
-  @apply text-glacier-900 font-bold;
+  @apply text-jet-950 font-bold;
 
   &.prevMonthDay,
   &.nextMonthDay {
@@ -59,7 +59,7 @@
 }
 
 span.flatpickr-weekday {
-  @apply text-glacier-900 font-bold;
+  @apply text-jet-950 font-bold;
 }
 
 .flatpickr-months {
@@ -75,7 +75,7 @@ span.flatpickr-weekday {
   }
 
   .flatpickr-month {
-    @apply text-glacier-50;
+    @apply text-jet-50;
 
     .flatpickr-current-month {
       .flatpickr-monthDropdown-months,
@@ -102,15 +102,15 @@ span.flatpickr-weekday {
 .flatpickr-day,
 &.prevMonthDay,
 &.nextMonthDay {
-  @apply hover:bg-jet-700 hover:text-glacier-50 max-w-none hover:rounded-full;
+  @apply hover:bg-jet-700 hover:text-jet-50 max-w-none hover:rounded-full;
 
   &.today:not(.selected) {
-    @apply border-jet-700 hover:bg-jet-700 hover:text-glacier-50;
+    @apply border-jet-700 hover:bg-jet-700 hover:text-jet-50;
   }
 
   &.startRange,
   &.endRange {
-    @apply border-jet-700 !bg-jet-700 !text-glacier-50 rounded-lg;
+    @apply border-jet-700 !bg-jet-700 !text-jet-50 rounded-lg;
   }
 
   &.today {
