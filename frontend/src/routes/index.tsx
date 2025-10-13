@@ -2,14 +2,7 @@ import { DataTable, TableData } from "@/DataTable";
 import { Card, CardContent, CardHeader, CardTitle } from "@components/ui/card";
 import DateTimePicker from "@components/ui/DateTimePicker";
 import { ScrollArea } from "@components/ui/scroll-area";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@components/ui/select";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
 import { createFileRoute } from "@tanstack/react-router";
 import { ColumnDef, createColumnHelper, Row } from "@tanstack/react-table";
 import { useMemo, useState } from "react";
@@ -275,7 +268,6 @@ function RouteComponent() {
       <div className={"w-full"}>
         <ScrollArea className={"h-96"}>
           <DataTable
-            headerClassName={"bg-sugar-cane-100"}
             columns={tableColumns}
             data={tableData}
             isRowExpansionEnabled

@@ -1,13 +1,14 @@
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { cn } from "@lib/utils";
+  ColumnFilteringProps,
+  ColumnSortingProps,
+  ColumnVisibilityProps,
+  ExportProps,
+  PaginationProps,
+  RowExpansionProps,
+  RowSelectionProps,
+  RowWithSubRows
+} from "@/DataTable/types";
 import {
   type ColumnDef,
   createColumnHelper,
@@ -20,215 +21,76 @@ import {
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
-  type OnChangeFn,
-  type Row,
   type RowData,
-  type RowSelectionState,
-  type SortingState,
   type TableOptions,
-  useReactTable,
-  type VisibilityState,
+  useReactTable
 } from "@tanstack/react-table";
-import {
-  ArrowDownNarrowWide,
-  ArrowDownUp,
-  ArrowUpWideNarrow,
-} from "lucide-react";
-import { Fragment, JSX, useEffect, useState } from "react";
+import { ArrowDownNarrowWide, ArrowDownUp, ArrowUpWideNarrow } from "lucide-react";
+import { Fragment, useState } from "react";
 import DefaultCheckboxColumn from "./DefaultCheckboxColumn";
 import DefaultExpanderColumn from "./DefaultExpanderColumn";
 import DefaultTextFilter from "./DefaultTextFilter";
-
-type RowWithSubRows<Type> = { subRows?: Type[] };
-
-export type TableData<Type extends RowData> = Type & RowWithSubRows<Type>;
 
 interface BaseProps<TData extends RowData> {
   bordered?: boolean;
   columns: ColumnDef<TData>[];
   data: TData[];
-  maxHeight?: number;
   striped?: boolean;
-  stretchToFitWidth?: boolean;
-  refreshUnexpandedState?: boolean;
-  // Style overrides
-  bodyClassName?: string;
-  cellClassName?: string;
-  className?: string;
-  footerClassName?: string;
-  headerClassName?: string;
-  rowClassName?: string;
 }
-
-interface ColumnFilteringEnabled {
-  isColumnFilteringEnabled: true;
-  isFaceted?: boolean;
-}
-
-interface ColumnFilteringDisabled {
-  isColumnFilteringEnabled?: false;
-  isFaceted?: never;
-}
-
-export type ColumnFilteringProps =
-  | ColumnFilteringEnabled
-  | ColumnFilteringDisabled;
-
-interface ColumnSortingEnabled {
-  isColumnSortingEnabled: true;
-  isMultiSort?: boolean;
-  initialSortingState?: SortingState;
-}
-
-interface ColumnSortingDisabled {
-  isColumnSortingEnabled?: false;
-  isMultiSort?: never;
-  initialSortingState?: never;
-}
-
-export type ColumnSortingProps = ColumnSortingEnabled | ColumnSortingDisabled;
-
-interface ColumnVisibilityEnabled {
-  isColumnVisibilityEnabled: true;
-  canUserControlVisibility?: boolean;
-  initialColumnVisibility?: VisibilityState;
-}
-
-interface ColumnVisibilityDisabled {
-  isColumnVisibilityEnabled?: false;
-  canUserControlVisibility?: never;
-  initialColumnVisibility?: never;
-}
-
-export type ColumnVisibilityProps =
-  | ColumnVisibilityEnabled
-  | ColumnVisibilityDisabled;
-
-interface ExportEnabled {
-  isExportEnabled: true;
-  fileName?: string;
-  sheetName?: string;
-}
-
-interface ExportDisabled {
-  isExportEnabled?: false;
-  fileName?: never;
-  sheetName?: never;
-}
-
-export type ExportProps = ExportEnabled | ExportDisabled;
-
-interface PaginationEnabled {
-  isPaginationEnabled: true;
-  pageSize?: number;
-}
-
-interface PaginationDisabled {
-  isPaginationEnabled?: false;
-  pageSize?: never;
-}
-
-export type PaginationProps = PaginationEnabled | PaginationDisabled;
-
-interface RowExpansionEnabled<TData> {
-  isRowExpansionEnabled: true;
-  autoResetExpanded?: boolean;
-  isInitiallyExpanded?: boolean;
-  expandedRowComponent?: (row: Row<TData>) => JSX.Element;
-}
-
-interface RowExpansionDisabled {
-  isRowExpansionEnabled?: false;
-  autoResetExpanded?: never;
-  isInitiallyExpanded?: never;
-  expandedRowComponent?: never;
-}
-
-export type RowExpansionProps<TData> =
-  | RowExpansionEnabled<TData>
-  | RowExpansionDisabled;
-
-interface RowSelectionEnabled<TData> {
-  getRowId?: (originalRow: TData) => string;
-  isRowSelectionEnabled: true;
-  setRowSelection: OnChangeFn<RowSelectionState>;
-  rowSelection: RowSelectionState;
-  selectionFilterFn?: (row: Row<TData>) => boolean;
-}
-
-interface RowSelectionDisabled {
-  getRowId?: never;
-  isRowSelectionEnabled?: boolean;
-  setRowSelection?: never;
-  rowSelection?: never;
-  selectionFilterFn?: never;
-}
-
-export type RowSelectionProps<TData> =
-  | RowSelectionEnabled<TData>
-  | RowSelectionDisabled;
 
 export type DataTableProps<TData extends RowData & RowWithSubRows<TData>> =
   BaseProps<TData> &
-    ColumnFilteringProps &
-    ColumnVisibilityProps &
-    ColumnSortingProps &
-    ExportProps &
-    PaginationProps &
-    RowExpansionProps<TData> &
-    RowSelectionProps<TData>;
+  ColumnFilteringProps &
+  ColumnVisibilityProps &
+  ColumnSortingProps &
+  ExportProps &
+  PaginationProps &
+  RowExpansionProps<TData> &
+  RowSelectionProps<TData>;
 
 const DEFAULT_COLUMN_IDS = {
   SELECT: "select",
-  EXPAND: "expander",
+  EXPAND: "expander"
 } as const;
 
 const DEFAULT_PAGE_SIZE = 50;
 
 export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
-  autoResetExpanded = true,
-  // canUserControlVisibility = true,
-  columns,
-  data,
-  expandedRowComponent,
-  // fileName = "Downloaded-Data",
-  getRowId,
-  // hover = false,
-  initialColumnVisibility = {},
-  initialSortingState,
-  isColumnVisibilityEnabled = false,
-  // isExportEnabled = false,
-  isRowExpansionEnabled = false,
-  isFaceted = false,
-  isColumnFilteringEnabled = false,
-  isInitiallyExpanded = false,
-  isPaginationEnabled = false,
-  isRowSelectionEnabled = false,
-  isColumnSortingEnabled = false,
-  isMultiSort = true,
-  // maxHeight,
-  pageSize,
-  refreshUnexpandedState = true,
-  rowSelection,
-  selectionFilterFn,
-  setRowSelection,
-  // sheetName = "Data",
-  // stretchToFitWidth = false,
-  // striped = true,
-  bodyClassName = "",
-  cellClassName = "",
-  className = "",
-  footerClassName = "",
-  headerClassName = "",
-  rowClassName = "",
-}: DataTableProps<TData>) => {
+                                                                           autoResetExpanded = true,
+                                                                           // canUserControlVisibility = true,
+                                                                           columns,
+                                                                           data,
+                                                                           expandedRowComponent,
+                                                                           // fileName = "Downloaded-Data",
+                                                                           getRowId,
+                                                                           // hover = false,
+                                                                           initialColumnVisibility = {},
+                                                                           initialSortingState,
+                                                                           isColumnVisibilityEnabled = false,
+                                                                           // isExportEnabled = false,
+                                                                           isRowExpansionEnabled = false,
+                                                                           isFaceted = false,
+                                                                           isColumnFilteringEnabled = false,
+                                                                           isInitiallyExpanded = false,
+                                                                           isPaginationEnabled = false,
+                                                                           isRowSelectionEnabled = false,
+                                                                           isColumnSortingEnabled = false,
+                                                                           isMultiSort = true,
+                                                                           pageSize,
+                                                                           rowSelection,
+                                                                           selectionFilterFn,
+                                                                           setRowSelection
+                                                                           // sheetName = "Data",
+                                                                           // stretchToFitWidth = false,
+                                                                           // striped = true,
+                                                                         }: DataTableProps<TData>) => {
   const getSubRows = (row: TData) => row.subRows;
   const hasSubRows = !!data.find(getSubRows);
 
   // const showFooter = isPaginationEnabled || isExportEnabled;
 
   const [columnVisibility, setColumnVisibility] = useState(
-    initialColumnVisibility,
+    initialColumnVisibility
   );
 
   const options: TableOptions<TData> = {
@@ -241,46 +103,46 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
     getSubRows,
     getCoreRowModel: getCoreRowModel(),
     ...(isColumnVisibilityEnabled && {
-      onColumnVisibilityChange: setColumnVisibility,
+      onColumnVisibilityChange: setColumnVisibility
     }),
     ...((isRowExpansionEnabled || hasSubRows) && {
       autoResetExpanded,
-      getExpandedRowModel: getExpandedRowModel(),
+      getExpandedRowModel: getExpandedRowModel()
     }),
     ...(isColumnFilteringEnabled && {
-      getFilteredRowModel: getFilteredRowModel(),
+      getFilteredRowModel: getFilteredRowModel()
     }),
     ...(isPaginationEnabled && {
-      getPaginationRowModel: getPaginationRowModel(),
+      getPaginationRowModel: getPaginationRowModel()
     }),
     ...(isColumnSortingEnabled && {
       getSortedRowModel: getSortedRowModel(),
       sortDescFirst: true,
-      enableMultiSort: isMultiSort,
+      enableMultiSort: isMultiSort
     }),
     ...(isColumnFilteringEnabled &&
       isFaceted && {
         getFacetedRowModel: getFacetedRowModel(),
         getFacetedUniqueValues: getFacetedUniqueValues(),
-        getFacetedMinMaxValues: getFacetedMinMaxValues(),
+        getFacetedMinMaxValues: getFacetedMinMaxValues()
       }),
     ...(isRowSelectionEnabled && {
       getRowId,
-      onRowSelectionChange: setRowSelection,
+      onRowSelectionChange: setRowSelection
     }),
     initialState: {
       ...(isPaginationEnabled && {
         pagination: {
-          pageSize: pageSize || DEFAULT_PAGE_SIZE,
-        },
+          pageSize: pageSize || DEFAULT_PAGE_SIZE
+        }
       }),
       ...(isColumnSortingEnabled &&
-        initialSortingState && { sorting: initialSortingState }),
+        initialSortingState && { sorting: initialSortingState })
     },
     state: {
       ...(isColumnVisibilityEnabled && { columnVisibility }),
-      ...(isRowSelectionEnabled && { rowSelection }),
-    },
+      ...(isRowSelectionEnabled && { rowSelection })
+    }
   };
 
   const helper = createColumnHelper<TData>();
@@ -288,7 +150,7 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
   if (isRowSelectionEnabled) {
     if (!columns.find((column) => column.id === DEFAULT_COLUMN_IDS.SELECT)) {
       columns.unshift(
-        helper.display(DefaultCheckboxColumn({ isPaginationEnabled })),
+        helper.display(DefaultCheckboxColumn({ isPaginationEnabled }))
       );
     }
   }
@@ -315,14 +177,14 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
     // previousPage,
     // setPageSize,
     // setPageIndex,
-    toggleAllRowsExpanded,
+    toggleAllRowsExpanded
   } = useReactTable(options);
 
   // Workaround to prevent erroneously rendering footer when not in ColumnDef
   // See: https://github.com/TanStack/table/discussions/5023#discussioncomment-8572450
   const footers = getFooterGroups()
     .map((group) =>
-      group.headers.map((header) => header.column.columnDef.footer),
+      group.headers.map((header) => header.column.columnDef.footer)
     )
     .flat()
     .filter(Boolean);
@@ -331,22 +193,21 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
     if (isInitiallyExpanded) toggleAllRowsExpanded(true);
   }
 
-  useEffect(() => {
-    toggleAllRowsExpanded(false);
-  }, [refreshUnexpandedState, toggleAllRowsExpanded]);
-
   return (
-    <Table className={className}>
-      <TableHeader className={cn("sticky top-0 z-10", headerClassName)}>
+    <Table style={{ color: "var(--table-text)" }}>
+      <TableHeader
+        className="sticky top-0 z-10"
+        style={{ backgroundColor: "var(--table-header-bg)" }}
+      >
         {getHeaderGroups().map((headerGroup) => (
-          <TableRow className={rowClassName} key={headerGroup.id}>
+          <TableRow key={headerGroup.id}>
             {headerGroup.headers.map((header) => {
               const { column, getContext, getSize, id, isPlaceholder } = header;
               const {
                 columnDef,
                 getCanFilter,
                 getCanSort,
-                getToggleSortingHandler,
+                getToggleSortingHandler
               } = column;
 
               return (
@@ -354,7 +215,7 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
                   colSpan={header.colSpan || 1}
                   key={`header_${id}`}
                   style={{
-                    ...(getSize() && { width: getSize() }),
+                    ...(getSize() && { width: getSize() })
                   }}
                 >
                   {isPlaceholder ? null : (
@@ -378,7 +239,7 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
                                 <span>
                                   <ArrowDownNarrowWide />
                                 </span>
-                              ),
+                              )
                             }[header.column.getIsSorted() as string] ?? (
                               <span>
                                 <ArrowDownUp />
@@ -392,7 +253,7 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
                           <div>
                             {flexRender(
                               columnDef.meta.Filter({ column }),
-                              getContext(),
+                              getContext()
                             )}
                           </div>
                         ) : (
@@ -409,13 +270,28 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
           </TableRow>
         ))}
       </TableHeader>
-      <TableBody className={cn("z-0", bodyClassName)}>
-        {getRowModel().rows.map((row) => {
+      <TableBody className="z-0">
+        {getRowModel().rows.map((row, index) => {
           return (
             <Fragment key={`body_${row.id}`}>
-              <TableRow className={rowClassName}>
+              <TableRow
+                style={{
+                  backgroundColor:
+                    index % 2 !== 0
+                      ? "var(--table-row-odd-bg)"
+                      : "transparent"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    "var(--table-row-hover-bg)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor =
+                    index % 2 !== 0 ? "var(--table-row-odd-bg)" : "transparent";
+                }}
+              >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell className={cellClassName} key={cell.id}>
+                  <TableCell key={cell.id}>
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -426,42 +302,45 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
               {row.getCanExpand()
                 ? null
                 : expandedRowComponent &&
-                  row.getIsExpanded() && (
-                    <TableRow className={rowClassName}>
-                      <TableCell
-                        className={cellClassName}
-                        colSpan={row.getVisibleCells().length}
-                      >
-                        {(() => {
-                          return expandedRowComponent(row);
-                        })()}
-                      </TableCell>
-                    </TableRow>
-                  )}
+                row.getIsExpanded() && (
+                  <TableRow
+                    style={{
+                      backgroundColor: "var(--table-row-odd-bg)"
+                    }}
+                  >
+                    <TableCell
+                      colSpan={row.getVisibleCells().length}
+                    >
+                      {(() => {
+                        return expandedRowComponent(row);
+                      })()}
+                    </TableCell>
+                  </TableRow>
+                )}
             </Fragment>
           );
         })}
       </TableBody>
       {footers.length > 0 && (
         <TableFooter
-          className={cn("sticky bottom-0 border-none", footerClassName)}
+          className="sticky bottom-0 border-none"
         >
           {getFooterGroups().map((footerGroup) => (
             <TableRow key={footerGroup.id}>
               {footerGroup.headers.map(
                 ({
-                  getContext,
-                  id,
-                  isPlaceholder,
-                  colSpan,
-                  column: {
-                    columnDef: { footer },
-                  },
-                }) => (
+                   getContext,
+                   id,
+                   isPlaceholder,
+                   colSpan,
+                   column: {
+                     columnDef: { footer }
+                   }
+                 }) => (
                   <TableHead colSpan={colSpan || 1} key={`footer_${id}`}>
                     {isPlaceholder ? null : flexRender(footer, getContext())}
                   </TableHead>
-                ),
+                )
               )}
             </TableRow>
           ))}
