@@ -194,7 +194,7 @@ export const DataTable = <TData extends RowData & RowWithSubRows<TData>>({
   }
 
   return (
-    <Table style={{ color: "var(--table-text)" }}>
+    <Table>
       <TableHeader
         className="sticky top-0 z-10"
         style={{ backgroundColor: "var(--table-header-bg)" }}
