@@ -17,11 +17,11 @@
     --secondary: var(--color-jet-950);
     --secondary-foreground: var(--color-jet-50);
 
-    --muted: oklch(0.9676 0.0014 285.04);
-    --muted-foreground: oklch(0.5519 0.0137 285.87);
+    --muted: oklch(0.86 0.03 220);
+    --muted-foreground: var(--color-jet-950);
 
-    --accent: var(--color-sea-green-800);
-    --accent-foreground: var(--color-jet-50);
+    --accent: var(--color-glacier-100);
+    --accent-foreground: var(--color-jet-950);
 
     --destructive: var(--color-rose-600);
     --destructive-foreground: var(--color-jet-50);
