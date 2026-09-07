@@ -159,7 +159,10 @@ def run_live_draft(
         else:
             print("No suggestions available.")
 
-        raw = input("Player (or undo/done): ").strip()
+        raw = input(
+            f"Pick {overall}/{total_picks} R{round_num} "
+            f"Team {draft_team}{mine} (or undo/done): "
+        ).strip()
         cmd = raw.casefold()
         if cmd == "done":
             break
