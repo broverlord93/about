@@ -136,3 +136,40 @@ def aggregate_by_player_id(player_stats: pd.DataFrame) -> pd.DataFrame:
     if season_part is not None:
         out = out.merge(season_part, on="player_id")
     return out.merge(sums, on="player_id")
+
+
+_SKILL_DEPTH_POSITIONS: Final[frozenset[str]] = frozenset({"RB", "FB", "WR", "TE"})
+
+
+def _latest_depth_snapshot(depth_charts: pd.DataFrame) -> pd.DataFrame:
+    """Return rows from the most recent depth-chart timestamp."""
+    if depth_charts.empty:
+        return depth_charts.copy()
+    snapshot = depth_charts.copy()
+    snapshot["dt"] = pd.to_datetime(snapshot["dt"])
+    latest = snapshot["dt"].max()
+    return snapshot.loc[snapshot["dt"] == latest].copy()
+
+
+def starting_qb_ids(depth_charts: pd.DataFrame) -> set[str]:
+    """GSIS IDs for QB depth-chart starters (pos_rank == 1) on latest snapshot."""
+    snap = _latest_depth_snapshot(depth_charts)
+    starters = snap[
+        (snap["pos_abb"] == "QB") & (snap["pos_rank"] == 1) & snap["gsis_id"].notna()
+    ]
+    return set(starters["gsis_id"].astype(str))
+
+
+def skill_depth_ids(
+    depth_charts: pd.DataFrame,
+    *,
+    max_rank: int = 2,
+) -> set[str]:
+    """GSIS IDs for RB/FB/WR/TE with depth rank <= ``max_rank`` on latest snapshot."""
+    snap = _latest_depth_snapshot(depth_charts)
+    eligible = snap[
+        snap["pos_abb"].isin(_SKILL_DEPTH_POSITIONS)
+        & (snap["pos_rank"] <= max_rank)
+        & snap["gsis_id"].notna()
+    ]
+    return set(eligible["gsis_id"].astype(str))
