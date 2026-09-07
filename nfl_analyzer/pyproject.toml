@@ -1,0 +1,14 @@
+[project]
+name = "nfl-analyzer"
+version = "0.1.0"
+description = "Analyze NFL player and team statistics to prepare for fantasy football drafts."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "nflreadpy",
+    "pandas",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

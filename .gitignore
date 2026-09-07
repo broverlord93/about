@@ -25,3 +25,14 @@ dist-ssr
 
 frontend/src/output.css
 frontend/src/routeTree.gen.ts
+
+# Python / uv
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.ruff_cache/
+*.egg-info/
+.pytest_cache/
+dist/
+build/
