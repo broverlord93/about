@@ -1,4 +1,4 @@
-"""Ideal-team draft construction from ranked fantasy boards."""
+"""Ideal-team draft construction and multi-team snake simulation."""
 
 from __future__ import annotations
 
@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from typing import Final
 
 import pandas as pd
+
+from nfl_analyzer.league import NUM_TEAMS, PICK_SLOT, ROSTER_SIZE
 
 TARGETS: Final[dict[str, int]] = {
     "QB": 2,
@@ -158,15 +160,12 @@ def select_best_candidate(candidates: list[BoardPlayer]) -> BoardPlayer | None:
     top = ranked[0]
     if top.trend in UP_SIDEWAYS:
         return top
-    # top is down-trending: prefer a close up/sideways alternative
     floor = top.fantasy_points_latest * (1.0 - TREND_FP_BAND)
     for alt in ranked[1:]:
         if alt.fantasy_points_latest < floor:
             break
         if alt.trend in UP_SIDEWAYS:
             return alt
-    # take down-trending top only if next option is not >5% better
-    # (with FP sort next is lower; keep top)
     if len(ranked) > 1:
         nxt = ranked[1]
         ceiling = top.fantasy_points_latest * (1.0 + TREND_FP_BAND)
@@ -208,16 +207,19 @@ def _filter_pool(
     board: list[BoardPlayer],
     roster: list[BoardPlayer],
     positions: set[str],
+    *,
+    taken_ids: set[str] | None = None,
+    enforce_targets: bool = True,
 ) -> list[BoardPlayer]:
-    drafted_ids = {p.player_id for p in roster}
+    unavailable = set(taken_ids or ()) | {p.player_id for p in roster}
     counts = _counts(roster)
     pool: list[BoardPlayer] = []
     for player in board:
-        if player.player_id in drafted_ids:
+        if player.player_id in unavailable:
             continue
         if player.position not in positions:
             continue
-        if not _quota_open(counts, player.position):
+        if enforce_targets and not _quota_open(counts, player.position):
             continue
         if not _team_ok(roster, player):
             continue
@@ -238,7 +240,9 @@ def _allowed_positions(counts: Counter[str]) -> set[str]:
     skill_ready_for_backup_qb = (
         counts["RB"] >= 2 and counts["WR"] >= 2 and counts["TE"] >= 2
     )
-    if _quota_open(counts, "QB") and (counts["QB"] == 0 or skill_ready_for_backup_qb):
+    if _quota_open(counts, "QB") and (
+        counts["QB"] == 0 or skill_ready_for_backup_qb
+    ):
         allowed.add("QB")
 
     k_dst_unlocked = (
@@ -256,67 +260,82 @@ def _allowed_positions(counts: Counter[str]) -> set[str]:
     return allowed
 
 
-def build_ideal_team(
+def _roster_to_frame(roster: list[BoardPlayer]) -> pd.DataFrame:
+    return pd.DataFrame(
+        [
+            {
+                "pick": i,
+                "player_display_name": player.name,
+                "position": player.position,
+                "team": player.team,
+                "bye_week": player.bye_week,
+                "fantasy_points_latest": player.fantasy_points_latest,
+                "yoy_pct": player.yoy_pct,
+                "trend": player.trend,
+            }
+            for i, player in enumerate(roster, start=1)
+        ]
+    )
+
+
+def next_pick(
     board: list[BoardPlayer],
+    roster: list[BoardPlayer],
     *,
-    preferred_qb_name: str = PREFERRED_QB_NAME,
-) -> pd.DataFrame:
-    """Greedy draft filling TARGETS; lock Josh Allen first when possible."""
-    roster: list[BoardPlayer] = []
-    picks: list[dict[str, object]] = []
+    taken_ids: set[str] | None = None,
+    preferred_qb_name: str | None = None,
+    roster_size: int | None = None,
+) -> BoardPlayer | None:
+    """Choose the next player for ``roster`` from ``board``."""
+    taken = set(taken_ids or ())
+    target_size = roster_size if roster_size is not None else sum(TARGETS.values())
 
-    # Pick 1: preferred QB if eligible, else best QB
-    qb_pool = _filter_pool(board, roster, {"QB"})
-    preferred = next((p for p in qb_pool if p.name == preferred_qb_name), None)
-    first = preferred or select_best_candidate(qb_pool)
-    if first is None:
-        return pd.DataFrame(
-            columns=[
-                "pick",
-                "player_display_name",
-                "position",
-                "team",
-                "bye_week",
-                "fantasy_points_latest",
-                "yoy_pct",
-                "trend",
-            ]
-        )
-    roster.append(first)
-    picks.append({"pick": 1, "player": first})
+    if not roster and preferred_qb_name:
+        qb_pool = _filter_pool(board, roster, {"QB"}, taken_ids=taken)
+        preferred = next((p for p in qb_pool if p.name == preferred_qb_name), None)
+        if preferred is not None:
+            return preferred
 
-    while not _targets_met(_counts(roster)):
-        counts = _counts(roster)
+    if len(roster) >= target_size:
+        return None
+
+    counts = _counts(roster)
+    if not _targets_met(counts):
         allowed = _allowed_positions(counts)
         if not allowed:
-            break
-
-        pool = _filter_pool(board, roster, allowed)
-        if not pool:
-            # Try remaining open quotas without phase locks
             fallback_positions = {
                 pos for pos, need in TARGETS.items() if counts[pos] < need
             }
-            pool = _filter_pool(board, roster, fallback_positions)
-            if not pool:
-                break
+            pool = _filter_pool(board, roster, fallback_positions, taken_ids=taken)
+            return select_best_candidate(pool)
 
-        # Opening phase nuance: until QB>=1, compare best skill vs best QB
+        pool = _filter_pool(board, roster, allowed, taken_ids=taken)
+        if not pool:
+            fallback_positions = {
+                pos for pos, need in TARGETS.items() if counts[pos] < need
+            }
+            pool = _filter_pool(board, roster, fallback_positions, taken_ids=taken)
+            return select_best_candidate(pool)
+
         if counts["QB"] == 0 and "QB" in allowed:
             skill_pool = [p for p in pool if p.position in SKILL_POSITIONS]
             qb_only = [p for p in pool if p.position == "QB"]
             best_skill = select_best_candidate(skill_pool)
             best_qb = select_best_candidate(qb_only)
+            if preferred_qb_name and counts["QB"] == 0:
+                raw_qb = _filter_pool(board, roster, {"QB"}, taken_ids=taken)
+                named = next((p for p in raw_qb if p.name == preferred_qb_name), None)
+                if named is not None:
+                    best_qb = named
             if (
                 best_skill is not None
                 and best_qb is not None
                 and best_skill.fantasy_points_latest > best_qb.fantasy_points_latest
             ):
-                choice = best_skill
-            else:
-                choice = best_qb or best_skill
-        # Backup QB: prefer QB unless a needed skill is higher
-        elif (
+                return best_skill
+            return best_qb or best_skill
+
+        if (
             counts["QB"] == 1
             and "QB" in allowed
             and counts["RB"] >= 2
@@ -331,28 +350,94 @@ def build_ideal_team(
                 best_skill is None
                 or best_qb.fantasy_points_latest >= best_skill.fantasy_points_latest
             ):
-                choice = best_qb
-            else:
-                choice = best_skill or best_qb
-        else:
-            choice = select_best_candidate(pool)
+                return best_qb
+            return best_skill or best_qb
 
+        return select_best_candidate(pool)
+
+    pool = _filter_pool(
+        board,
+        roster,
+        set(TARGETS.keys()),
+        taken_ids=taken,
+        enforce_targets=False,
+    )
+    return select_best_candidate(pool)
+
+
+def build_ideal_team(
+    board: list[BoardPlayer],
+    *,
+    preferred_qb_name: str = PREFERRED_QB_NAME,
+    roster_size: int | None = None,
+) -> pd.DataFrame:
+    """Greedy draft filling TARGETS; lock preferred QB first when possible."""
+    size = roster_size if roster_size is not None else sum(TARGETS.values())
+    roster: list[BoardPlayer] = []
+    while len(roster) < size:
+        choice = next_pick(
+            board,
+            roster,
+            preferred_qb_name=preferred_qb_name,
+            roster_size=size,
+        )
         if choice is None:
             break
         roster.append(choice)
-        picks.append({"pick": len(roster), "player": choice})
+    return _roster_to_frame(roster)
 
-    rows = [
-        {
-            "pick": item["pick"],
-            "player_display_name": item["player"].name,
-            "position": item["player"].position,
-            "team": item["player"].team,
-            "bye_week": item["player"].bye_week,
-            "fantasy_points_latest": item["player"].fantasy_points_latest,
-            "yoy_pct": item["player"].yoy_pct,
-            "trend": item["player"].trend,
-        }
-        for item in picks
-    ]
-    return pd.DataFrame(rows)
+
+def simulate_snake_draft(
+    board: list[BoardPlayer],
+    *,
+    num_teams: int = NUM_TEAMS,
+    pick_slot: int = PICK_SLOT,
+    roster_size: int = ROSTER_SIZE,
+    preferred_qb_name: str = PREFERRED_QB_NAME,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Run a full snake draft; return (draft_log, my_team for pick_slot)."""
+    rosters: dict[int, list[BoardPlayer]] = {i: [] for i in range(1, num_teams + 1)}
+    taken: set[str] = set()
+    log_rows: list[dict[str, object]] = []
+
+    total_picks = num_teams * roster_size
+    for overall in range(1, total_picks + 1):
+        round_idx = (overall - 1) // num_teams
+        pos_in_round = (overall - 1) % num_teams
+        if round_idx % 2 == 0:
+            draft_team = pos_in_round + 1
+        else:
+            draft_team = num_teams - pos_in_round
+
+        roster = rosters[draft_team]
+        prefer = preferred_qb_name if draft_team == pick_slot else None
+        choice = next_pick(
+            board,
+            roster,
+            taken_ids=taken,
+            preferred_qb_name=prefer,
+            roster_size=roster_size,
+        )
+        if choice is None:
+            break
+
+        roster.append(choice)
+        taken.add(choice.player_id)
+        log_rows.append(
+            {
+                "overall_pick": overall,
+                "round": round_idx + 1,
+                "draft_team": draft_team,
+                "player_display_name": choice.name,
+                "position": choice.position,
+                "nfl_team": choice.team,
+                "bye_week": choice.bye_week,
+                "fantasy_points_latest": choice.fantasy_points_latest,
+                "yoy_pct": choice.yoy_pct,
+                "trend": choice.trend,
+            }
+        )
+
+    draft_log = pd.DataFrame(log_rows)
+    my_team = _roster_to_frame(rosters[pick_slot])
+    return draft_log, my_team
