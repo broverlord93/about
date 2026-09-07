@@ -6,6 +6,7 @@ import numpy as np
 import pandas as pd
 
 from nfl_analyzer.scoring import (
+    DEFENSE,
     KICKING,
     MISCELLANEOUS,
     PASSING,
@@ -100,9 +101,46 @@ def season_fantasy_points(df: pd.DataFrame) -> pd.DataFrame:
     )
 
 
+def weekly_dst_fantasy_points(df: pd.DataFrame) -> pd.Series:
+    """Score each team-week using league D/ST defensive scoring rules."""
+    blocks = (
+        _col(df, "def_fg_blocks")
+        + _col(df, "def_pat_blocks")
+        + _col(df, "def_punt_blocks")
+    )
+    points = (
+        _col(df, "def_sacks") * DEFENSE["SK"]
+        + blocks * DEFENSE["BLKK"]
+        + _col(df, "def_interceptions") * DEFENSE["INT"]
+        + _col(df, "fumble_recovery_opp") * DEFENSE["FR"]
+        + _col(df, "def_safeties") * DEFENSE["SF"]
+    )
+    return pd.Series(points, index=df.index, name="fantasy_points")
+
+
+def season_dst_fantasy_points(df: pd.DataFrame) -> pd.DataFrame:
+    """Sum weekly D/ST fantasy points by team and season (REG only)."""
+    if df.empty:
+        return pd.DataFrame(columns=["team", "season", "fantasy_points"])
+
+    reg = df
+    if "season_type" in df.columns:
+        reg = df.loc[df["season_type"] == "REG"].copy()
+
+    scored = reg.copy()
+    scored["fantasy_points"] = weekly_dst_fantasy_points(scored)
+    return (
+        scored.groupby(["team", "season"], as_index=False)["fantasy_points"]
+        .sum()
+        .sort_values(["team", "season"])
+        .reset_index(drop=True)
+    )
+
+
 def yoy_trend_table(
     season_fp: pd.DataFrame,
     *,
+    id_col: str = "player_id",
     threshold: float = YOY_THRESHOLD,
     seasons_window: int = 3,
 ) -> pd.DataFrame:
@@ -113,7 +151,7 @@ def yoy_trend_table(
     """
     empty = pd.DataFrame(
         columns=[
-            "player_id",
+            id_col,
             "trend",
             "fantasy_points_latest",
             "fantasy_points_prev",
@@ -124,13 +162,13 @@ def yoy_trend_table(
         return empty
 
     rows: list[dict[str, object]] = []
-    for player_id, group in season_fp.groupby("player_id", sort=False):
+    for entity_id, group in season_fp.groupby(id_col, sort=False):
         ordered = group.sort_values("season")
         if len(ordered) < seasons_window:
             latest = ordered.iloc[-1]
             rows.append(
                 {
-                    "player_id": player_id,
+                    id_col: entity_id,
                     "trend": "—",
                     "fantasy_points_latest": float(latest["fantasy_points"]),
                     "fantasy_points_prev": float("nan"),
@@ -159,7 +197,7 @@ def yoy_trend_table(
 
         rows.append(
             {
-                "player_id": player_id,
+                id_col: entity_id,
                 "trend": trend,
                 "fantasy_points_latest": pts_new,
                 "fantasy_points_prev": pts_old,
