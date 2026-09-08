@@ -139,6 +139,84 @@ def build_board(
     return board
 
 
+def board_stubs_from_players(
+    players: pd.DataFrame,
+    existing_ids: set[str],
+    bye_by_team: dict[str, int],
+    *,
+    latest_season: int,
+) -> list[BoardPlayer]:
+    """Stub BoardPlayers for non-RET fantasy-eligible players missing from a board.
+
+    Includes incoming rookies (``draft_year > latest_season``) and other
+    draftable-position players with no stats row yet.
+    """
+    from nfl_analyzer.filters import DRAFTABLE_POSITIONS
+
+    frame = players.copy()
+    if "status" in frame.columns:
+        frame = frame.loc[frame["status"] != "RET"]
+    if "gsis_id" not in frame.columns:
+        return []
+
+    if "draft_year" in frame.columns:
+        draft_year = frame["draft_year"].fillna(0).astype(int)
+    else:
+        draft_year = pd.Series(0, index=frame.index)
+    if "last_season" in frame.columns:
+        last_season = frame["last_season"].fillna(0).astype(int)
+    else:
+        last_season = pd.Series(0, index=frame.index)
+    eligible = (last_season >= latest_season) | (draft_year > latest_season)
+    frame = frame.loc[eligible]
+
+    pos_col = "position" if "position" in frame.columns else None
+    if pos_col is None:
+        return []
+    frame = frame.loc[frame[pos_col].isin(DRAFTABLE_POSITIONS)]
+
+    name_col = (
+        "display_name"
+        if "display_name" in frame.columns
+        else "player_name"
+        if "player_name" in frame.columns
+        else None
+    )
+    team_col = (
+        "team_abbr"
+        if "team_abbr" in frame.columns
+        else "latest_team"
+        if "latest_team" in frame.columns
+        else None
+    )
+    if name_col is None:
+        return []
+
+    stubs: list[BoardPlayer] = []
+    for _, row in frame.iterrows():
+        pid = str(row["gsis_id"])
+        if not pid or pid == "nan" or pid in existing_ids:
+            continue
+        if team_col is not None and pd.notna(row[team_col]):
+            team = str(row[team_col])
+        else:
+            team = "—"
+        stubs.append(
+            BoardPlayer(
+                player_id=pid,
+                name=str(row[name_col]),
+                team=team,
+                position=_normalize_position(str(row[pos_col])),
+                bye_week=bye_by_team.get(team),
+                fantasy_points_latest=0.0,
+                yoy_pct=float("nan"),
+                trend="→",
+            )
+        )
+        existing_ids.add(pid)
+    return stubs
+
+
 def is_trend_eligible(player: BoardPlayer) -> bool:
     if pd.isna(player.yoy_pct):
         return False
